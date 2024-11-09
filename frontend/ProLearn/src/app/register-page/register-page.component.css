@@ -1,0 +1,57 @@
+/* src/app/register/register.component.css */
+
+.register-container {
+    max-width: 400px;
+    margin: 0 auto; /* Center the container */
+    margin-left: 10%; /* Shift the container to the right by 15% of the screen width */
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    position: sticky; /* Allow positioning on top of the blurred background */
+    z-index: 1; /* Ensure the container is on top */
+    backdrop-filter: blur(10px); /* Optional: Add additional blur to the container itself */
+}
+
+h1 {
+    text-align: center;
+    margin: 0 0 20px; /* Combined margin */
+    color: #eaebf3; /* Updated color to match the login style */
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #f8f1f1; /* Updated color to match the login style */
+}
+
+input {
+    width: 95%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color:rgb(18, 116, 155);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:disabled {
+    background-color: #ccc;
+}
+
+p {
+    text-align: center;
+    margin: 10px 0 0; /* Added top margin for spacing */
+}

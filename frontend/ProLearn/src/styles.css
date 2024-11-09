@@ -1,0 +1,64 @@
+/* styles.css */
+
+/* Apply a background image */
+body {
+    font-family: 'Montserrat', sans-serif; /* Base font for all text */
+    color: #d0d0d0; /* Light color for readability */
+    background: url('assets/main_background.jpg') no-repeat center center fixed; /* Set the background image */
+    background-size: cover; /* Ensure the background image covers the entire viewport */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    line-height: 1.6; /* Improve text readability */
+}
+
+/* Global styles for headings */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif; /* Use Montserrat for headings for consistency */
+    color: #f0f0f0; /* Light color for headings */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Add depth effect */
+    margin: 0; /* Remove default margins */
+}
+
+/* Set consistent spacing for all sections */
+.container {
+    padding: 20px; /* General padding for all container sections */
+}
+
+/* Global card styling */
+.card {
+    background: rgba(61, 58, 58, 0.8); /* Semi-transparent background */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px;
+    width: 100%; /* Full width for better responsiveness */
+    max-width: 400px; /* Set a max width for larger screens */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+    transition: transform 0.2s; /* Smooth scaling on hover */
+}
+
+/* Card hover effect */
+.card:hover {
+    transform: scale(1.05); /* Slight scale on hover */
+    cursor: pointer; /* Change cursor to pointer */
+}
+
+/* Responsive headings */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5em; /* Adjust heading size for mobile */
+    }
+    h2 {
+        font-size: 1.8em; /* Adjust secondary heading size for mobile */
+    }
+}
+
+/* Page container that fills the viewport */
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure it takes full height */
+}
+
+/* Content wrapper that takes up available space */
+.content-wrap {
+    flex: 1; /* This will push the footer down */
+}

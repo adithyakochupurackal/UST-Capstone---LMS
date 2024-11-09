@@ -1,0 +1,172 @@
+<app-after-login-header></app-after-login-header>
+<div class="dashboard-container" title="Dashboard">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="nav-content">
+            <div class="nav-item" (click)="navigateTo('courses')">
+                <h2>Courses</h2>
+                <p>Browse all available courses.</p>
+            </div>
+            <div class="nav-item" (click)="navigateTo('enrolledCourses')">
+                <h2>Enrolled Courses</h2>
+                <p>View the courses you are currently enrolled in.</p>
+            </div>
+            <div class="nav-item" (click)="navigateTo('assignments')">
+                <h2>Assignments</h2>
+                <p>Check your pending assignments.</p>
+            </div>
+            <div class="nav-item" (click)="navigateTo('performanceAnalysis')">
+                <h2>Performance Analysis</h2>
+                <p>Track your learning progress and analytics.</p>
+            </div>
+            <div class="nav-item" (click)="navigateTo('feedback')">
+                <h2>Feedback</h2>
+                <p>Provide and view feedback.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content area -->
+    <div class="content">
+        <ng-container [ngSwitch]="currentView">
+            <!-- Courses View -->
+            <div *ngSwitchCase="'courses'" class="ngSwitchCase">
+                <h2>Courses</h2>
+                <p>Here you can see all available courses.</p>
+
+                <!-- Search Bar -->
+                <div class="search-bar">
+                    <input type="text" [(ngModel)]="searchTerm" placeholder="Search courses..." class="searchbox" />
+                    <button (click)="searchCourses()" class="search-button">Search</button>
+                </div>
+
+                <!-- Filter and Sort Options -->
+                <div class="filters">
+                    <div class="filter-group">
+                        <label for="categoryFilter">Category:</label>&nbsp;&nbsp;
+                        <select id="categoryFilter" [(ngModel)]="selectedCategory" (change)="filterCourses()" class="filter-select">
+                            <option value="">All Categories</option>
+                            <option *ngFor="let category of uniqueCategories" [value]="category">{{ category }}</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="ratingFilter">Rating:</label>&nbsp;&nbsp;
+                        <select id="ratingFilter" [(ngModel)]="selectedRating" (change)="filterCourses()" class="filter-select">
+                            <option value="">All Ratings</option>
+                            <option value="4">4 and above</option>
+                            <option value="3">3 and above</option>
+                            <option value="2">2 and above</option>
+                            <option value="1">1 and above</option>
+                        </select>
+                    </div>
+
+                    <button (click)="resetFilters()" class="reset-button">Reset Filters</button>
+                </div>
+
+                <!-- Displaying Filtered Courses -->
+                <div *ngFor="let course of filteredCourses" class="card course-item">
+                    <h3 class="course-title">{{ course.name }}</h3>
+                    <p class="course-description">{{ course.description }}</p>
+                    <p><strong>Category:</strong> {{ course.category }}</p>
+                    <p><strong>Rating:</strong> {{ course.rating }} / 5</p>
+                    <button (click)="enroll(course.courseId)" [disabled]="course.isEnrolled" class="enroll-button">{{ course.isEnrolled ? 'Enrolled' : 'Enroll' }}</button>
+
+                </div>
+            </div>
+
+            <!-- Enrolled Courses View -->
+            <div *ngSwitchCase="'enrolledCourses'" class="ngSwitchCase">
+                <h2 class="section-title">Enrolled Courses</h2>
+                <p class="section-description">Here you can see the courses you are enrolled in.</p>
+                <div *ngFor="let enrolled of enrolledCourses" class="card course-item">
+                    <h3 class="course-title">{{ enrolled.name }}</h3>
+                    <p class="course-description">{{ enrolled.description }}</p>
+                </div>
+            </div>
+            
+            
+
+            <!-- Assignments View -->
+            <div *ngSwitchCase="'assignments'" class="ngSwitchCase">
+                <h2>Assignments</h2>
+                <p>Here you can check your pending assignments.</p>
+                <div *ngFor="let assignment of enrolledCourses" class="card assignment-item">
+                    <!-- <h3>{{ assignment.title }}</h3> -->
+                    <!-- <p>{{ assignment.description }}</p>
+                    <p><strong>Due Date:</strong> {{ assignment.dueDate | date }}</p>
+                    <p><strong>Status:</strong> {{ assignment.status }}</p> -->
+
+                    <div class="container">
+                        <form (ngSubmit)="onSubmitAssignment()" enctype="multipart/form-data">
+                            
+                            <!-- File upload input -->
+                            <label type="file"
+                            for="fileInput"
+                            class="upload-label">Choose file</label>
+                            <input 
+                            type="file" 
+                            id="fileInput" 
+                            class="file-input" 
+                            (change)="onFileSelected($event)" 
+                            required/>
+
+                            <!-- Submit button -->
+                            <button type="submit" [disabled]="!file" class="submit-button">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Analysis View -->
+            <div *ngSwitchCase="'performanceAnalysis'" class="ngSwitchCase">
+                <h2>Performance Analysis</h2>
+                <p>Track your learning progress and analytics here.</p>
+                <div *ngFor="let analysis of performanceData" class="card analysis-item">
+                    <h3>{{ analysis.metricName }}</h3>
+                    <p><strong>Score:</strong> {{ analysis.score }}</p>
+                    <p><strong>Comparison:</strong> {{ analysis.comparison }}</p>
+                </div>
+            </div>
+
+            <!-- Feedback View -->
+            <div *ngSwitchCase="'feedback'" class="ngSwitchCase">
+                <h2>Feedback</h2>
+                <p>We value your suggestions and feedback. Please share your thoughts with us!</p>
+            
+                <div class="feedback-container">
+                    <h3>Your Feedback Matters</h3>
+                    <form (ngSubmit)="submitFeedbackForm()" #feedbackForm="ngForm">
+                        <div class="form-group">
+                            <label for="name" class="feedback-name">Your Name &nbsp;&nbsp;:</label> &nbsp;&nbsp;
+                            <input type="text" 
+                            id="name" 
+                            class="feedback-text" 
+                            name="name" 
+                            [(ngModel)]="feedback.name" 
+                            required
+                            required placeholder="Enter your name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="feedbackDescription">Your Feedback</label>
+                            <textarea 
+                            id="feedbackDescription" 
+                            name="feedbackDescription" 
+                            [(ngModel)]="feedback.feedbackDescription" 
+                            required 
+                            rows="4" 
+                            placeholder="Share your thoughts..."></textarea>
+                        </div>
+                        <button type="submit" class="btn submit-feedback">Submit Feedback</button>
+                    </form>
+                </div>
+            </div>
+            
+
+            <!-- Default View -->
+            <div *ngSwitchDefault class="ngSwitchCase">
+                <h2>Select a section from the sidebar</h2>
+            </div>
+        </ng-container>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+<!-- src/app/login/login.component.html -->
+ <app-header></app-header>
+<div class="login-container">
+    <h2>Login to ProLearn</h2>
+    <form (ngSubmit)="onLogin()">
+      <div class="form-group">
+        <strong><label for="email">Email:</label></strong>
+        <input type="email" id="email" [(ngModel)]="email" name="email" required />
+      </div>
+      <div class="form-group">
+    <strong><label for="password">Password:</label></strong>
+        <input type="password" id="password" [(ngModel)]="password" name="password" required />
+      </div>
+    <strong><button type="submit" class="login-button">Login</button></strong>
+    </form>
+  </div>
+
+  

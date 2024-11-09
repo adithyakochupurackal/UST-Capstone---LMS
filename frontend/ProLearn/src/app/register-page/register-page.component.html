@@ -1,0 +1,41 @@
+<app-header></app-header>
+<div class="register-container">
+    <h2>Create Your Account</h2>
+    <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+        <div class="form-group">
+            <label for="studentName"><strong>Name:</strong></label>
+            <input
+                type="text"
+                id="studentName"
+                name="studentName"
+                [(ngModel)]="user.studentName"
+                required
+            />
+        </div>
+        <div class="form-group">
+            <label for="studentEmail"><strong>Email:</strong></label>
+            <input
+                type="studentEmail"
+                id="studentEmail"
+                name="studentEmail"
+                [(ngModel)]="user.studentEmail"
+                required
+            />
+        </div>
+        <div class="form-group">
+            <label for="studentPassword"><strong>Password:</strong></label>
+            <input
+                type="studentPassword"
+                id="studentPassword"
+                name="studentPassword"
+                [(ngModel)]="user.studentPassword"
+                required
+            />
+        </div>
+        <br>
+        <button type="submit" [disabled]="!registerForm.form.valid">Register</button>
+    </form>
+    <p>
+        Already have an account? <a routerLink="/login">Login here</a>
+    </p>
+</div>

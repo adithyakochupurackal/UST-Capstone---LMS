@@ -1,0 +1,69 @@
+/* src/app/login/login.component.css */
+
+body, html {
+    height: 100%; /* Ensure the body and html cover full height */
+    margin: 0; /* Remove default margin */
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: flex-start; /* Align items to the top */
+    background-size: cover; /* Cover the whole background */
+}
+
+.login-container {
+    max-width: 400px; /* Maximum width of the container */
+    margin: 0 auto; /* Center the container */
+    margin-left: 10%; /* Shift the container to the right by 15% of the screen width */
+    margin-top: 5%;
+    padding: 20px; /* Uniform padding around the content */
+    border: 1px solid #ddd; /* Light border for visibility */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    font-family: Arial, sans-serif; /* Consistent font */
+    position: sticky; /* Allow positioning on top of the blurred background */
+    z-index: 1; /* Ensure the container is on top */
+    backdrop-filter: blur(10px); /* Optional: Add additional blur to the container itself */
+}
+
+h2 {
+    text-align: center; /* Center the heading */
+    color: #eaebf3; /* Updated color to match the register style */
+    margin: 0 0 20px; /* Combined margin for spacing */
+}
+
+.form-group {
+    margin-bottom: 15px; /* Space between form groups */
+}
+
+label {
+    display: block; /* Block display for labels */
+    margin-bottom: 5px; /* Spacing below labels */
+    color: #f8f1f1; /* Updated color to match the register style */
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 95%; /* Consistent width with register input */
+    padding: 8px; /* Padding for inputs */
+    border: 1px solid #ddd; /* Border for inputs */
+    border-radius: 4px; /* Rounded corners for inputs */
+}
+
+.login-button {
+    width: 100%; /* Full width for button */
+    padding: 10px; /* Padding for button */
+    background-color: #5cb85c; /* Consistent background color */
+    color: white; /* Text color for button */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners for button */
+    cursor: pointer; /* Pointer cursor on hover */
+    background-color: rgb(18, 116, 155);
+}
+
+.login-button:disabled {
+    background-color: #ccc; /* Disabled button style */
+}
+
+p {
+    text-align: center; /* Center the text */
+    margin: 10px 0 0; /* Added top margin for spacing */
+}

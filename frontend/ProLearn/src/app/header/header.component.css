@@ -1,0 +1,33 @@
+/* src/app/header/header.component.css */
+
+/* Header Styling */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color:(61, 58, 58, 0.8); /* Semi-transparent background */
+    color: #fff;
+}
+
+.logo h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 1rem;
+    font-size: 1rem;
+    transition: color 0.3s, transform 0.3s; /* Add transform transition */
+}
+
+
+.nav-links a:hover {
+    color: #e5e919; /* Keep text white on hover */  
+    transition: transform 0.9s;
+    cursor: pointer;
+    transform: scale(1.05); /* Scale up slightly on hover */
+}

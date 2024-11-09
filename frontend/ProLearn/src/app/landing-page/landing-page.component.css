@@ -1,0 +1,93 @@
+/* src/app/landing-page/landing-page.component.css */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: 100vh; /* Full viewport height */
+}
+
+.intro {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.intro h1 {
+    color: #f0f0f0; /* Light gray for the main heading */
+    font-size: 2.5em; /* Increase size for emphasis */
+}
+
+.intro h3 {
+    color: #d0d0d0; /* Slightly darker gray for subheading */
+    font-size: 1.2em; /* Adjust font size for better readability */
+    margin: 10px 0; /* Add margin for spacing */
+}
+
+.join-now {
+    background-color: rgba(0, 123, 255, 0.3); /* Semi-transparent primary button color */
+    color: white; /* Button text color */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 20px; /* Padding inside the button */
+    font-size: 1.2em; /* Font size for the button text */
+    cursor: pointer; /* Change cursor to pointer */
+    transition: background-color 0.3s; /* Transition for hover effect */
+    margin-top: 20px; /* Space above the button */
+    margin-left: 5px;
+}
+
+.join-now:hover {
+    background-color: rgba(0, 123, 255, 0.7); /* Darken button on hover */
+}
+
+
+/* Navigation Bar Styles */
+.navbar {
+    background-color: #333; /* Dark background for navbar */
+    padding: 10px 20px; /* Padding around the navbar */
+}
+
+.navbar ul {
+    list-style-type: none; /* Remove bullet points */
+    display: flex; /* Display items in a row */
+    justify-content: flex-end; /* Align items to the right */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+}
+
+.navbar li {
+    color: #f0f0f0; /* Light gray color for text */
+    padding: 10px 15px; /* Padding around each link */
+    cursor: pointer; /* Change cursor to pointer */
+    transition: background-color 0.3s; /* Transition effect for background */
+}
+
+.navbar li:hover {
+    background-color: #555; /* Darken background on hover */
+}
+
+/* Card Styles */
+.card {
+    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent light color for better visibility */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px;
+    width: 250px; /* Set a fixed width */
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2); /* Lighter shadow for depth */
+    transition: transform 0.2s; /* Smooth scaling effect on hover */
+}
+
+.card:hover {
+    transform: scale(1.05); /* Scale up slightly on hover */
+}
+
+.card h2 {
+    color: #f0f0f0; /* Set the card title color to light gray */
+    font-size: 1.5em; /* Set font size for the title */
+    margin-bottom: 10px; /* Margin below the title */
+}
+
+.card h4 {
+    color: #d0d0d0; /* Set card description color to slightly darker gray */
+    font-size: 1em; /* Adjust font size for description */
+}

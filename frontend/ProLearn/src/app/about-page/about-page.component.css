@@ -1,0 +1,26 @@
+/* src/app/terms/terms.component.css */
+
+h1 {
+    text-align: left;
+    margin: 20px ; /* Spacing around the heading */
+    color: #fff; /* White color for contrast */
+    font-size: 2.5rem; /* Larger font size for the title */
+}
+
+p {
+    max-width: 80vb; /* Limit paragraph width for better readability */
+    margin: 10px; /* Corrected margin for spacing */
+    padding: 10px; /* Padding for inner spacing */
+    color: #f8f1f1; /* Light color for the text */
+    line-height: 1.6; /* Improve readability with line height */
+    font-family: Arial, sans-serif; /* Consistent font */
+}
+
+.container {
+    max-width: 800px; /* Limit the width of the content area */
+    margin-left: 5%; /* Shift the container to the right by 15% of the screen width */
+    max-width: 50%;
+    padding: 20px; /* Uniform padding around the content */
+    position: relative; /* Ensure it is above the blurred background */
+    z-index: 1; /* Layering */
+}

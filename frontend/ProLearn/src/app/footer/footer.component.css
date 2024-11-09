@@ -1,0 +1,30 @@
+/* src/app/footer/footer.component.css */
+
+.footer {
+    background-color: rgba(61, 58, 58, 0.8); /* Semi-transparent dark background */
+    color: white; /* White text color */
+    text-align: center; /* Center text */
+    padding: 20px 0; /* Padding for top and bottom */
+    position: relative; /* Positioning */
+    bottom: 0; /* Stick to bottom of the page */
+    width: 100%; /* Full width */
+}
+
+.footer-content {
+    max-width: 1200px; /* Max width for the content */
+    margin: 0 auto; /* Center the content */
+}
+
+.footer-nav {
+    margin-top: 10px; /* Space between text and nav */
+}
+
+.footer-nav a {
+    color: white; /* White text for links */
+    margin: 0 15px; /* Space between links */
+    text-decoration: none; /* Remove underline */
+}
+
+.footer-nav a:hover {
+    text-decoration: underline; /* Underline on hover for links */
+}
