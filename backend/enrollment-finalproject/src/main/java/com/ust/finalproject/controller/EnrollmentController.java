@@ -22,12 +22,11 @@ public class EnrollmentController
 {
 	@Autowired
     private EnrollmentService enrollmentService;
-//	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/enroll")
     public ResponseEntity<Enrollment> enrollStudent(@RequestBody Enrollment enrollment) 
 	{
-        Enrollment enrollmen = enrollmentService.enrollStudent(enrollment.getStudentId(), enrollment.getCourseId());
-        return new ResponseEntity<>(enrollmen, HttpStatus.CREATED);
+        Enrollment e=enrollmentService.enrollStudent(enrollment.getStudentId(), enrollment.getCourseId());
+        return new ResponseEntity<>(e,HttpStatus.CREATED);
     }
     @GetMapping("/student/{studentId}")
     public List<Enrollment> getEnrollmentsByStudentId(@PathVariable int studentId) 

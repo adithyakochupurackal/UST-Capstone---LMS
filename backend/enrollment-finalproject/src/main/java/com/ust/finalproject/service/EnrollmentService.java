@@ -15,8 +15,8 @@ public class EnrollmentService
     private EnrollmentRepository enrollmentRepository;
     @Autowired
     private RestTemplate restTemplate;
-    private static final String STUDENT_SERVICE_URL = "http://localhost:8001/api/";
-    private static final String COURSE_SERVICE_URL = "http://localhost:8000/api/";
+    private static final String STUDENT_SERVICE_URL="http://localhost:2255/api/";
+    private static final String COURSE_SERVICE_URL="http://localhost:8000/api/";
     public Enrollment enrollStudent(int studentId,int courseId) 
     {
         Student student=restTemplate.getForObject(STUDENT_SERVICE_URL+studentId, Student.class);

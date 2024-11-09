@@ -1,6 +1,7 @@
 package com.ust.finalproject.controller;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,19 +19,16 @@ public class Controller
 {
 	@Autowired
 	private CourseService courseService;
-    // Find courses by name
     @GetMapping("/courseName/{name}")
     public ResponseEntity<List<Courses>> findByName(@PathVariable String name) {
         List<Courses> courses = courseService.findByName(name);
         return ResponseEntity.ok(courses);
     }
-    // Get all courses
     @GetMapping("/getAll")
     public ResponseEntity<List<Courses>> findAll() {
         List<Courses> courses = courseService.findAll();
         return ResponseEntity.ok(courses);
     }
-    // Find a course by ID
     @GetMapping("/{courseId}")
     public ResponseEntity<Courses> findById(@PathVariable int courseId) {
         Courses course = courseService.findById(courseId);
@@ -53,7 +51,9 @@ public class Controller
         return courseService.getCoursesByRating(rating);
     }
     @PostMapping("/addCourse")
-    public Courses addCourse(@RequestBody Courses course) {
-        return courseService.addCourse(course);
+    public ResponseEntity<Courses> addCourse(@RequestBody Courses course) 
+    {
+    	Courses addedCourse = courseService.addCourse(course);
+        return new ResponseEntity<>(addedCourse, HttpStatus.CREATED);
     }
 }
