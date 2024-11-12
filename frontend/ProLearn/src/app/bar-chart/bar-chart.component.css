@@ -1,0 +1,50 @@
+/* Main container for the card with background, blur effect, and shadow */
+.chart-card {
+    display: flex;
+    align-items: center;
+    color: white; /* Text color set to white */
+    background: rgba(255, 255, 255, 0.7); /* Black background with slight transparency */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+    backdrop-filter: blur(10px); /* Blurred background effect */
+    border-radius: 12px; /* Rounded corners for a smooth look */
+    padding: 20px;
+    margin: 20px auto; /* Centered with margin */
+    max-width: 600px; /* Set maximum width of the card */
+    width: 100%; /* Full width within max-width */
+    transform: translateX(25px); /* Shift 25px to the right */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  
+  /* Subtle hover effect to slightly enlarge and add shadow */
+  .chart-card:hover {
+    transform: scale(1.03) translateX(25px); /* Maintain 25px right shift on hover with scaling */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.8); /* Stronger shadow */
+  }
+  
+  /* Inner container for the canvas with additional styling */
+  .chart-content {
+    width: 100%; /* Ensures canvas takes full width of the card */
+    padding: 10px; /* Inner padding for the content */
+  }
+  
+  /* Canvas styling to ensure it's professional-looking */
+  canvas {
+      background-color: aliceblue;
+    border-radius: 8px; /* Rounded corners for the canvas */
+    box-shadow: 0px 2px 8px rgba(0, 0, 0,); /* Soft shadow */
+  }
+  
+  /* Optional border for card */
+  .chart-card {
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Soft, light border */
+  }
+  
+  /* Responsive adjustments for smaller screens */
+  @media (max-width: 768px) {
+    .chart-card {
+      padding: 15px;
+      max-width: 95%; /* Reduce width on smaller screens */
+      transform: translateX(0); /* Remove shift on smaller screens if needed */
+    }
+  }
+  

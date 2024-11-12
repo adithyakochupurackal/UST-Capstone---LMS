@@ -192,23 +192,8 @@ isEnrolled(courseId: number): boolean {
     enrolled.showFeedback = false;
   }
 
-  feedback = {
-    name:"",
-    feedbackDescription:""
-  };
-
-  submitFeedbackForm(): void {
-    console.log('Feedback submitted:', this.feedback);
-    this.ApiService.submitFeedback(this.feedback).subscribe(
-      (response)=>{
-        console.log("your feedback is successfully added",response)
-        
-      },
-      (error)=>{
-        console.log("there is error while adding your feedback",error)
-      }
-    )
-  }
+  
+  
   // getEnrolledCourses(): void 
   // {
   //   this.ApiService.getEnrolledCourses(this.studentId).subscribe({
@@ -286,4 +271,62 @@ isEnrolled(courseId: number): boolean {
       this.message='Please fill in all the fields.';
     }
   }
+
+  feedback = {
+    name: '',
+    feedbackDescription: ''
+  };
+  
+  submitFeedbackForm(): void {
+    console.log('Feedback submitted:', this.feedback);
+    
+    // Call the API to submit the feedback
+    this.ApiService.submitFeedback(this.feedback).subscribe(
+      (response) => {
+        // On successful submission, log the response
+        console.log("Your feedback is successfully added", response);
+  
+        // Show an alert to the user indicating successful feedback submission
+        alert('Thank you! Your feedback has been submitted successfully.');
+  
+        // Clear the form by resetting the feedback object after the alert
+        this.feedback = {
+          name: '',
+          feedbackDescription: ''
+        };
+  
+      },
+      (error) => {
+        // Log any errors during submission
+        console.log("There is an error while adding your feedback", error);
+        alert('Oops! Something went wrong. Please try again later.');
+      }
+    );
+  }
+
+  showFeedbackForm = false;
+  selectedCourse: any = null;
+  feedbackCourses = { rating: null, feedbackText: '' };
+
+  openFeedbackForm(course: any) {
+    this.selectedCourse = course;
+    this.showFeedbackForm = true;
+  }
+
+  closeFeedbackForm() {
+    this.showFeedbackForm = false;
+    this.selectedCourse = null;
+    this.feedbackCourses = { rating: null, feedbackText: '' };
+  }
+
+  submitFeedbackCourses() {
+    // Handle the feedback submission logic here
+    console.log('Feedback submitted for', this.selectedCourse.name);
+    console.log('Rating:', this.feedbackCourses.rating);
+    console.log('Feedback:', this.feedbackCourses.feedbackText);
+
+    // Close the form after submission
+    this.closeFeedbackForm();
+  }
+  
 }

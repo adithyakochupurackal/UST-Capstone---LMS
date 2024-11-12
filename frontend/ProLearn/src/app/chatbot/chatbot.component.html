@@ -1,0 +1,45 @@
+<div class="chatbot-container" [ngClass]="{ 'expanded': isExpanded, 'closed': !isExpanded }">
+    <!-- Chat Bubble Icon to Open/Close Chat Window -->
+    <div class="chatbot-bubble" (click)="toggleChat()">
+        <span class="chatbot-icon">💬</span>
+    </div>
+
+    <!-- Chat Window -->
+    <div class="chatbot-window" *ngIf="isExpanded">
+        <!-- Header with Close Button -->
+        <div class="chat-header">
+            <h3>Chatbot</h3>
+            <button class="close-btn" (click)="toggleChat()" aria-label="Close Chat">⛒</button>
+        </div>
+
+        <!-- Chat Body with Messages -->
+        <div class="chat-body">
+            <div class="chat-messages">
+                <!-- Loop through each message and style based on sender -->
+                <div *ngFor="let msg of messages" 
+                    [ngClass]="{'user': msg.sender === 'user', 'bot': msg.sender === 'ai'}" 
+                    class="chat-message">
+                    <span class="message-sender">{{ msg.sender === 'user' ? 'You' : 'AI' }}:</span>
+                    <span class="message-text">{{ msg.text }}</span>
+                    
+                    <span *ngIf="msg.timestamp" class="timestamp">{{ msg.timestamp }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Field and Send Button -->
+        <div class="chat-input-container">
+            <input 
+                type="text" 
+                class="chat-input" 
+                placeholder="Type a message..." 
+                [(ngModel)]="message" 
+                (keydown)="handleKeydown($event)" 
+                aria-label="Type a message"
+                (focus)="onFocus()" 
+                (blur)="onBlur()"
+            />
+            <button class="send-btn" (click)="sendMessage()" aria-label="Send message">➤</button>
+        </div>
+    </div>
+</div>

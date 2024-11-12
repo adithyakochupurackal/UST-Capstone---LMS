@@ -19,6 +19,9 @@ import { AfterLoginHeaderComponent } from './after-login-header/after-login-head
 
 import { NgChartsModule } from 'ng2-charts';
 import { HttpClientModule } from '@angular/common/http';
+import { BarChartComponent } from './bar-chart/bar-chart.component';
+import { ChatbotComponent } from './chatbot/chatbot.component';
+
 
 
 
@@ -38,6 +41,9 @@ NgChartsModule
     TermsConditionsPageComponent,
     CoursePageComponent,
     AfterLoginHeaderComponent,
+    BarChartComponent,
+    ChatbotComponent,
+
   ],
   imports: [
     BrowserModule,

@@ -79,11 +79,34 @@
             <div *ngSwitchCase="'enrolledCourses'" class="ngSwitchCase">
                 <h2 class="section-title">Enrolled Courses</h2>
                 <p class="section-description">Here you can see the courses you are enrolled in.</p>
+            
                 <div *ngFor="let enrolled of enrolledCourses" class="card course-item">
                     <h3 class="course-title">{{ enrolled.name }}</h3>
                     <p class="course-description">{{ enrolled.description }}</p>
+            
+                    <!-- Give Feedback Button -->
+                    <button (click)="openFeedbackForm(enrolled)" class="btn-feedback">Give Feedback</button>
+            
+                    <!-- Feedback Form inside a card -->
+                    <div *ngIf="showFeedbackForm && selectedCourse === enrolled" class="card feedback-card">
+                        <h3>Provide Feedback for {{ enrolled.name }}</h3>
+                        <form (ngSubmit)="submitFeedbackCourses()">
+                            <div class="form-group">
+                                <label for="rating">Rating (1 to 5):</label>
+                                <input type="number" id="rating" [(ngModel)]="feedbackCourses.rating" name="rating" min="1" max="5" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="feedbackText">Feedback:</label>
+                                <textarea id="feedbackText" [(ngModel)]="feedbackCourses.feedbackText" name="feedbackText" rows="4" required></textarea>
+                            </div>
+                            <button type="submit" class="btn-submit">Submit Feedback</button>
+                            <button type="button" (click)="closeFeedbackForm()" class="btn-cancel">Cancel</button>
+                        </form>
+                    </div>
                 </div>
             </div>
+            
+            
             
             
 
@@ -122,11 +145,8 @@
             <div *ngSwitchCase="'performanceAnalysis'" class="ngSwitchCase">
                 <h2>Performance Analysis</h2>
                 <p>Track your learning progress and analytics here.</p>
-                <div *ngFor="let analysis of performanceData" class="card analysis-item">
-                    <h3>{{ analysis.metricName }}</h3>
-                    <p><strong>Score:</strong> {{ analysis.score }}</p>
-                    <p><strong>Comparison:</strong> {{ analysis.comparison }}</p>
-                </div>
+                <app-bar-chart></app-bar-chart>
+
             </div>
 
             <!-- Feedback View -->
@@ -168,5 +188,8 @@
                 <h2>Select a section from the sidebar</h2>
             </div>
         </ng-container>
+      <!-- app.component.html -->
+<app-chatbot></app-chatbot>
+
     </div>
 </div>
