@@ -23,8 +23,29 @@
     color: white; /* White text for links */
     margin: 0 15px; /* Space between links */
     text-decoration: none; /* Remove underline */
+    position: relative; /* For pseudo-elements */
+    transition: transform 0.3s ease, color 0.3s ease; /* Smooth transition */
 }
 
+/* Hover effect: Color change and scaling */
 .footer-nav a:hover {
-    text-decoration: underline; /* Underline on hover for links */
+    color: #ffcc00; /* Gold color on hover */
+    transform: scale(1.1); /* Slightly scale the link */
+}
+
+/* Add a cool underline effect with pseudo-element */
+.footer-nav a::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%; /* Start with 0% width */
+    height: 2px;
+    background-color: #ffcc00; /* Gold underline */
+    transition: width 0.3s ease; /* Animate width */
+}
+
+/* Underline appears from left to right on hover */
+.footer-nav a:hover::before {
+    width: 100%; /* Expand to full width */
 }

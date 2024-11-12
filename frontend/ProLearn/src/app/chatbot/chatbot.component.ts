@@ -12,7 +12,7 @@ export class ChatbotComponent {
   messages: { text: string, sender: 'user' | 'ai', timestamp: string }[] = [];
 
   // Initialize Google Generative AI with your API key
-  genAi = new GoogleGenerativeAI('jhgaed'); // Add your API Key here
+  genAi = new GoogleGenerativeAI('AIzaSyC0q3wUKQ1dPH8faNgJTwvfBQU2KlC1Mvw'); // Add your API Key here
   model = this.genAi.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
   toggleChat() {

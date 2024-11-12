@@ -28,17 +28,21 @@
     background-color: rgba(0, 123, 255, 0.3); /* Semi-transparent primary button color */
     color: white; /* Button text color */
     border: none; /* Remove default border */
-    border-radius: 5px; /* Rounded corners */
-    padding: 10px 20px; /* Padding inside the button */
-    font-size: 1.2em; /* Font size for the button text */
+    border-radius: 30px; /* Make the button fully round */
+    padding: 15px 30px; /* Increased padding for a larger button */
+    font-size: 1.4em; /* Font size for the button text */
     cursor: pointer; /* Change cursor to pointer */
-    transition: background-color 0.3s; /* Transition for hover effect */
+    transition: all 0.3s ease; /* Smooth transition for all properties */
     margin-top: 20px; /* Space above the button */
     margin-left: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add subtle shadow for depth */
+    display: inline-block; /* Ensure the button stays inline */
 }
 
 .join-now:hover {
     background-color: rgba(0, 123, 255, 0.7); /* Darken button on hover */
+    transform: translateY(-10px); /* Move the button up when hovered */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Add a stronger shadow on hover */
 }
 
 

@@ -1,62 +1,64 @@
-/* src/app/header/header.component.css */
-
 /* Header Styling */
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background-color:(61, 58, 58, 0.8); /* Semi-transparent background */
-    color: #fff;
+    background: linear-gradient(135deg, rgba(182, 180, 180, 0.2) 0%, rgba(0, 0, 0, 0.3) 100%); /* Transparent gradient *//* Dark Blue Gradient */
+    border-radius: 10px; /* Rounded corners for the header */
+    margin: 10px; /* Margin around the header */
+    color: rgb(7, 0, 0);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.9); /* Soft shadow for depth */
+    backdrop-filter: blur(1px); /* Applying background blur for a modern effect */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions for scaling and shadow */
 }
 
+/* Add hover effect to header: Slight scale and shadow */
+.header:hover {
+    transform: scale(1.01); /* Slightly enlarge the header on hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover */
+}
+
+/* Logo Styling */
 .logo h1 {
-    font-size: 1.8rem;
+    font-size: 2rem; /* Slightly larger font size */
     font-weight: bold;
     margin: 0;
+    text-shadow: 0 0 8px rgba(255, 204, 0); /* Glowing text effect */
 }
 
+/* Navigation Link Styling */
 .nav-links a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 1rem;
-    font-size: 1rem;
-    transition: color 0.3s, transform 0.3s; /* Add transform transition */
-}
-
-
-.nav-links a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 1rem;
-    font-size: 1rem;
-    transition: color 0.3s, transform 0.3s; /* Add transform transition */
-}
-
-
-.nav-links a {
-    position: relative; /* Needed for positioning the ::after pseudo-element */
     color: white; /* Default link color */
-    text-decoration: none; /* Remove the default underline */
+    text-decoration: none; /* Remove default underline */
+    margin: 0 1rem; /* Spacing between links */
+    font-size: 1rem;
+    position: relative; /* Needed for positioning the ::after pseudo-element */
+    transition: color 0.3s, transform 0.3s ease-in-out, text-shadow 0.3s ease; /* Smooth transition for color, transform and shadow */
+    transform: scale(1.01); /* Slight scale effect for links */
 }
 
+/* Add underline effect using ::after */
 .nav-links a::after {
     content: '';
     position: absolute;
-    left: 50%;
-    bottom: -2px; /* Position slightly below the text */
-    width: 0;
-    height: 2px; /* Thickness of the underline */
-    background-color: #e5e919; /* Color of the underline */
-    transition: width 0.3s ease, left 0.3s ease;
-    transform: translateX(-50%);
+    bottom: 0;
+    left: 0;
+    width: 0%; /* Start with 0% width */
+    height: 2px;
+    background-color: #ffcc00; /* Gold underline */
+    transition: width 0.3s ease, left 0.3s ease; /* Animate width and left position */
 }
 
+/* Hover effect on the links: Color change, scaling and underline expansion */
 .nav-links a:hover {
-    color: #e5e919; /* Change color on hover if desired */
+    color: #e5e919; /* Gold color on hover */
+    transform: scale(1.5); /* Slightly grow the link */
+    text-shadow: 0 0 10px rgba(255, 204, 0); /* Glowing effect for text on hover */
 }
 
+/* Expand the underline effect */
 .nav-links a:hover::after {
-    width: 100%; /* Expand the underline */
+    width: 100%; /* Expand the underline to full width */
+    left: 0; /* Move the underline to start from the left */
 }
-

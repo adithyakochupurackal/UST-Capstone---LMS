@@ -34,6 +34,7 @@
 .nav-item:hover {
     background: rgba(173, 181, 182, 0.5); /* Highlight effect on hover */
     border-radius: 10px; /* Rounded corners */
+    transform: scale(1.07); /* Slight scale effect for links */
 }
 
 /* Content area styles */
@@ -52,7 +53,7 @@
 /* Card styles */
 .card {
     flex: 1 1 calc(30% - 20px); /* Flexible width for cards */
-    background-color: rgba(8, 11, 14, 0.2);/* Light background for contrast */
+    background-color: rgba(8, 11, 14, 0.4);/* Light background for contrast */
     border-radius: 10px; /* Rounded corners */
     padding: 15px; /* Inner padding for cards */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow for depth */
@@ -60,11 +61,13 @@
     margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 20px;
+    backdrop-filter: 25px;
+    
    
 }
 
 .card:hover {
-    transform: scale(1.02); /* Slightly scale up on hover */
+    transform: scale(1.07); /* Slight scale effect for links */
 }
 
 /* Course item styles */
@@ -86,7 +89,7 @@
 .search-input {
     flex: 1; /* Allow input to grow */
     padding: 12px; /* Inner padding */
-    border: 2px solid #007bff; /* Primary border color */
+    
     border-radius: 5px; /* Rounded corners */
     font-size: 1rem; /* Font size */
     transition: border-color 0.3s; /* Smooth border transition */
@@ -104,7 +107,7 @@
     background: #007bff; /* Primary button color */
     color: white; /* White text */
     border: none; /* No border */
-    border-radius: 5px; /* Rounded corners */
+    border-radius: 20px; /* Rounded corners */
     cursor: pointer; /* Change cursor to pointer */
     transition: background 0.3s; /* Smooth background transition */
     margin-left: 10px; /* Space between input and button */
@@ -112,11 +115,13 @@
 
 .search-button:hover {
     background: #0056b3; /* Darker shade on hover */
+    transform: scale(1.07); /* Slight scale effect for links */
 }
 
 .searchbox {
-    border-radius: 10px;
+    border-radius: 30px;
     flex: auto;
+    background-color: rgba(225,225,225,0.7);
 }
 
 /* Filters Styles */
@@ -131,22 +136,30 @@
 .filter-group {
     display: flex; /* Align label and select horizontally */
     align-items: center; /* Center vertically */
+    backdrop-filter: 30px;
+}
+   
+.filter-group.rating-filter{
+    background-color: rgb(255, 255, 255,0.3);
+}
+.filter-group.category-filter{
+    background-color: rgb(255, 255, 255,0.3);
 }
 
 .filter-label {
     margin-right: 10px; /* Space between label and select */
     font-weight: bold; /* Bold label */
-    color: #333; /* Dark text color */
+    color: rgb(255, 255, 255); /* Dark text color */
     margin-left: 20px;
 }
 
 .filter-select {
     padding: 10px; /* Inner padding */
-    border: 2px solid #ccc; /* Light border */
     border-radius: 20px; /* Rounded corners */
     font-size: 1rem; /* Font size */
     transition: border-color 0.3s; /* Smooth border transition */
-    background-color: rgba(255, 255, 255, 0.5); /* White background with transparency */
+    background-color: rgba(255, 255, 255, 0.2); /* White background with transparency */
+    backdrop-filter: 30px;
 }
 
 .filter-select:hover,
@@ -160,13 +173,14 @@
     background: #007bff; /* Primary button color */
     color: white; /* White text */
     border: none; /* No border */
-    border-radius: 5px; /* Rounded corners */
+    border-radius: 20px; /* Rounded corners */
     cursor: pointer; /* Change cursor to pointer */
     transition: background 0.3s; /* Smooth background transition */
 }
 
 .reset-button:hover {
     background: #446391; /* Darker shade on hover */
+    transform: scale(1.07); /* Slight scale effect for links */
 }
 
 
@@ -183,6 +197,7 @@
 
 .enroll-button:hover {
     background: #388E3C; /* Darker shade on hover */
+    transform: scale(1.07); /* Slight scale effect for links */
 }
 
 h2, p{
@@ -223,7 +238,7 @@ h2, p{
 
 .button-submit:hover {
     background-color: #45a049; /* Darker green on hover */
-    transform: translateY(-2px); /* Lift effect on hover */
+    transform: scale(1.07); /* Slight scale effect for links */
 }
 
 .button-submit:active {
@@ -243,6 +258,7 @@ button {
 
 button:hover {
     background-color: #22dd3b;
+    transform: scale(1.07); /* Slight scale effect for links */
 }
 /* Overall styling for the feedback form section */
 .feedback-form {
@@ -258,7 +274,7 @@ textarea {
    
     width: 80%;
     margin-top: 8px;
-    border-radius: 10px;
+    border-radius: 30px;
     background-color: rgba(160, 160, 160, 0.2);
     backdrop-filter: blur(5px); /* White background with transparency */
 }
@@ -283,6 +299,7 @@ textarea::placeholder {
 
 .btn:hover {
     background-color: rgba(0, 86, 179, 0.8); /* Semi-transparent hover effect */
+    transform: scale(1.07); /* Slight scale effect for links */
 }
 
 /* Styling for the submit and cancel buttons */
@@ -292,14 +309,17 @@ textarea::placeholder {
 
 .submit-feedback:hover {
     background-color: rgba(33, 136, 56, 0.8); /* Darker green on hover */
+    transform: scale(1.07); /* Slight scale effect for links */
 }
 
 .cancel-feedback {
     background-color: rgba(152, 202, 13, 0.8); /* Semi-transparent red */
+    transform: scale(1.07); /* Slight scale effect for links */
 }
 
 .cancel-feedback:hover {
     background-color: rgba(200, 35, 51, 0.8); /* Darker red on hover */
+    transform: scale(1.07); /* Slight scale effect for links */
 }
 
 /* Feedback actions section */
@@ -307,17 +327,26 @@ textarea::placeholder {
     margin-top: 12px;
 }
 .feedback-container {
+    flex: 1 1 calc(30% - 20px); /* Flexible width for cards */
+    background-color: rgba(0, 0, 0, 0.4);/* Light background for contrast */
+    border-radius: 10px; /* Rounded corners */
+    padding: 15px; /* Inner padding for cards */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+    transition: transform 0.2s; /* Smooth transform on hover */
+    margin-top: 10px;
+    margin-bottom: 10px;
     margin-left: 20px;
-    margin-top: 20px;
-    padding: 20px;
-    backdrop-filter: blur(5px);
-    border-radius: 10px;
+    backdrop-filter: 25px;
+}
+.feedback-container:hover{
+    transform: scale(1.03); /* Slight scale effect for links *
+    
 }
 .feedback-card {
     width: 85%; /* Set width to 30% */
     border-radius: 8px; /* Smaller rounded corners for the nested card */
     padding: 10px; /* Inner padding for feedback card */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Softer shadow */
+    box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1); /* Softer shadow */
     margin-top: 10px; /* Space above feedback form */
 }
 
@@ -342,6 +371,7 @@ button.submit-feedback {
 
 button.submit-feedback:hover {
     background-color: rgba(33, 136, 56, 0.9);
+    transform: scale(1.07); /* Slight scale effect for links */
 }
 
 .feedback-text{
@@ -360,13 +390,14 @@ button.submit-feedback:hover {
   
   .btn-feedback:hover {
     background-color: #0056b3;
+    transform: scale(1.07); /* Slight scale effect for links */
   }
   
   
   
   .feedback-form-container h3 {
     font-size: 1.2em;
-    color: #333;
+    color: rgb(255, 255, 255);
     margin-bottom: 10px;
   }
   
@@ -405,6 +436,7 @@ button.submit-feedback:hover {
   
   .btn-submit:hover {
     background-color: #218838;
+    transform: scale(1.07); /* Slight scale effect for links */
   }
   
   .btn-cancel {
@@ -418,6 +450,154 @@ button.submit-feedback:hover {
   
   .btn-cancel:hover {
     background-color: #c82333;
+    transform: scale(1.07); /* Slight scale effect for links */
   }
 
+  /* Styling for the dropdowns (select elements) */
+.filter-select {
+    background-color: #ffffff; /* Light grey background */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 20px; /* Rounded corners */
+    padding: 10px; /* Padding inside the dropdown */
+    font-size: 1em; /* Font size for better readability */
+    color: #333; /* Text color */
+    width: 200px; /* Set a fixed width for consistency */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    transition: all 0.3s ease; /* Smooth transition for border and background */
+}
 
+.filter-select:focus {
+    outline: none; /* Remove default focus outline */
+    border-color: #007bff; /* Blue border on focus */
+
+  
+}
+
+.filter-select option {
+    padding: 10px; /* Padding inside each option */
+    background-color: rgb(255, 255, 255); /* White background for options */
+    color: rgba(0, 0, 0, 0.4); /* Text color for options */
+}
+
+/* Styling for the dropdown labels */
+.filter-group label {
+    font-size: 1em; /* Font size for labels */
+    color: rgb(255, 255, 255); /* Label text color */
+    margin-right: 10px; /* Space between label and dropdown */
+    transition: color 0.3s ease; /* Smooth transition for color change */
+}
+
+/* Optional: Add some margin to the dropdowns for better spacing */
+.filter-group {
+    margin-right: 20px; /* Space between filter groups */
+    display: inline-block; /* Keep filters in line */
+}
+
+.filter-group:hover {
+    transform: scale(1.05); /* Slightly larger scale on hover */
+    border-radius: 5px; /* Keep the rounded corners */
+}
+
+/* General form styling */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(75, 71, 71, 0.4);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    margin: 20px;
+    max-width: 600px;
+    backdrop-filter: blur(25px);
+}
+
+/* Form header styling */
+.feedback-name {
+    font-weight: 600;
+    color: rgb(255, 255, 255);
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+/* Input and textarea styling */
+input[type="text"], textarea {
+    width: 100%;
+    max-width: 90%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus, textarea:focus {
+    border-color: #5cb85c;
+    outline: none;
+}
+
+/* Textarea specific styling */
+textarea {
+    resize: vertical;
+}
+
+/* Placeholder styling */
+input::placeholder, textarea::placeholder {
+    color: #aaa;
+}
+
+/* Form button styling */
+button.submit-feedback {
+    background-color: #5cb85c;
+    color: white;
+    padding: 12px 20px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-items: flex-start;
+}
+
+button.submit-feedback:hover {
+    background-color: #4cae4c;
+}
+
+button.submit-feedback:active {
+    background-color: #3e8e3e;
+}
+
+/* Form group styling for spacing */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 90%;
+    margin-bottom: 20px;
+}
+
+/* Error message styling */
+input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
+    border-color: #e74c3c;
+}
+
+input.ng-valid.ng-touched, textarea.ng-valid.ng-touched {
+    border-color: #2ecc71;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    form {
+        padding: 15px;
+    }
+
+    button.submit-feedback {
+        width: 100%;
+    }
+}
