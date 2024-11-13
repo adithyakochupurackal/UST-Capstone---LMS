@@ -1,4 +1,5 @@
 /* src/app/terms/terms.component.css */
+/* src/app/terms/terms.component.css */
 
 h1 {
     text-align: left;
@@ -16,11 +17,6 @@ p {
     font-family: Arial, sans-serif; /* Consistent font */
 }
 
-.container {
-    max-width: 800px; /* Limit the width of the content area */
-    margin-left: 5%; /* Shift the container to the right by 15% of the screen width */
-    max-width: 50%;
-    padding: 20px; /* Uniform padding around the content */
-    position: relative; /* Ensure it is above the blurred background */
-    z-index: 1; /* Layering */
+.a{
+    height: 100vh;
 }

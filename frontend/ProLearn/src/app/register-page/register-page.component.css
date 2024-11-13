@@ -1,8 +1,10 @@
 /* src/app/register/register.component.css */
 
 .register-container {
-    max-width: 400px;
-    margin: 0 auto; /* Center the container */
+    margin-top: 10vh; /* Center the container */
+    margin-bottom: 10vh;
+    width: 35%;
+    justify-content: center;
     margin-left: 10%; /* Shift the container to the right by 15% of the screen width */
     padding: 20px;
     border: 1px solid #ddd;
@@ -54,4 +56,9 @@ button:disabled {
 p {
     text-align: center;
     margin: 10px 0 0; /* Added top margin for spacing */
+}
+.a{
+    height:100vh;
+    margin: 0;
+    flex-direction: column;
 }

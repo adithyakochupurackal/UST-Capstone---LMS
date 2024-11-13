@@ -10,7 +10,8 @@ body, html {
 }
 
 .login-container {
-    max-width: 400px; /* Maximum width of the container */
+    height: 45vh; /* Maximum width of the container */
+    width: 35%;
     margin: 0 auto; /* Center the container */
     margin-left: 10%; /* Shift the container to the right by 15% of the screen width */
     margin-top: 5%;
@@ -66,4 +67,9 @@ input[type="password"] {
 p {
     text-align: center; /* Center the text */
     margin: 10px 0 0; /* Added top margin for spacing */
+}
+.a{
+    height:100vh;
+    margin: 0;
+    
 }

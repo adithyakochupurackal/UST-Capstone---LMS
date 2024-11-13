@@ -1,4 +1,9 @@
 <!-- src/app/landing-page/landing-page.component.html -->
+<head>
+  <title>ProLearn</title>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
 
 <!-- Header Component -->
 <app-header></app-header>
@@ -7,17 +12,20 @@
 <div class="container">
   <!-- Introduction Section -->
   <section class="intro">
-    <h1>Welcome to ProLearn</h1>
+    <h1><i class="fas fa-graduation-cap"></i> Welcome to ProLearn</h1>
     <h3>
-      ProLearn is your ultimate Learning Management System, <br>
+      <i class="fas fa-book-reader"></i> ProLearn is your ultimate Learning Management System, <br>
       designed to elevate your skills, track your progress, <br>
       and achieve excellence. Join us for a seamless learning <br>
-      experience with high-quality courses, interactive tools,<br>
+      experience with high-quality courses, interactive tools, <br>
       and expert guidance.
     </h3>
     <!-- Join Now Button -->
-    <button class="join-now" (click)="navigateTo('register')">Join Now</button>
+    <button class="join-now" (click)="navigateTo('register')">
+      <i class="fas fa-user-plus"></i> Join Now
+    </button>
   </section>
 </div>
 
+<!-- Footer Component -->
 <app-footer></app-footer>

@@ -1,41 +1,53 @@
-<app-header></app-header>
-<div class="register-container">
-    <h2>Create Your Account</h2>
-    <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
-        <div class="form-group">
-            <label for="studentName"><strong>Name:</strong></label>
-            <input
-                type="text"
-                id="studentName"
-                name="studentName"
-                [(ngModel)]="user.studentName"
-                required
-            />
-        </div>
-        <div class="form-group">
-            <label for="studentEmail"><strong>Email:</strong></label>
-            <input
-                type="studentEmail"
-                id="studentEmail"
-                name="studentEmail"
-                [(ngModel)]="user.studentEmail"
-                required
-            />
-        </div>
-        <div class="form-group">
-            <label for="studentPassword"><strong>Password:</strong></label>
-            <input
-                type="studentPassword"
-                id="studentPassword"
-                name="studentPassword"
-                [(ngModel)]="user.studentPassword"
-                required
-            />
-        </div>
-        <br>
-        <button type="submit" [disabled]="!registerForm.form.valid">Register</button>
-    </form>
-    <p>
-        Already have an account? <a routerLink="/login">Login here</a>
-    </p>
-</div>
+<head>
+    <title>ProLearn</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  </head><app-header></app-header>
+  <body class="a">
+      
+  
+  <div class="register-container">
+      <h2><i class="fas fa-user-plus"></i> Create Your Account</h2>
+      <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+          <div class="form-group">
+              <label for="studentName"><strong><i class="fas fa-user"></i> Name:</strong></label>
+              <input
+                  type="text"
+                  id="studentName"
+                  name="studentName"
+                  [(ngModel)]="user.studentName"
+                  required
+              />
+          </div>
+          <div class="form-group">
+              <label for="studentEmail"><strong><i class="fas fa-envelope"></i> Email:</strong></label>
+              <input
+                  type="email"
+                  id="studentEmail"
+                  name="studentEmail"
+                  [(ngModel)]="user.studentEmail"
+                  required
+              />
+          </div>
+          <div class="form-group">
+              <label for="studentPassword"><strong><i class="fas fa-lock"></i> Password:</strong></label>
+              <input
+                  type="password"
+                  id="studentPassword"
+                  name="studentPassword"
+                  [(ngModel)]="user.studentPassword"
+                  required
+              />
+          </div>
+          <br>
+          <button type="submit" [disabled]="!registerForm.form.valid">
+              <i class="fas fa-user-check"></i> Register
+          </button>
+      </form>
+      <p>
+          Already have an account? <a routerLink="/login"><i class="fas fa-sign-in-alt"></i> Login here</a>
+      </p>
+  </div>
+</body>
+  <app-footer></app-footer>
+  

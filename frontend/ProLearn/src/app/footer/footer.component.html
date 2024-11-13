@@ -1,12 +1,17 @@
 <!-- src/app/footer/footer.component.html -->
+<head>
+    <title>ProLearn</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
 <footer class="footer">
     <div class="footer-content">
         <p>&copy; 2024 ProLearn. All rights reserved.</p>
         <nav class="footer-nav">
-            <a routerLink="/about">About</a> <!-- Link to the About component -->
-    <a routerLink="/contact">Contact</a> <!-- Link to the Contact component -->
-    <a routerLink="/terms">Terms and Conditions</a> <!-- Link to Terms and Conditions -->
-    <a routerLink="/privacy">Privacy Policy</a>
+            <a routerLink="/about"><i class="fas fa-info-circle"></i> About</a> <!-- About link with icon -->
+            <a routerLink="/contact"><i class="fas fa-envelope"></i> Contact</a> <!-- Contact link with icon -->
+            <a routerLink="/terms"><i class="fas fa-file-contract"></i> Terms and Conditions</a> <!-- Terms link with icon -->
+            <a routerLink="/privacy"><i class="fas fa-user-secret"></i> Privacy Policy</a> <!-- Privacy link with icon -->
         </nav>
     </div>
 </footer>

@@ -1,18 +1,31 @@
 <!-- src/app/login/login.component.html -->
- <app-header></app-header>
+<head>
+  <title>ProLearn</title>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<app-header></app-header>
+<body class="a">
+  
 <div class="login-container">
-    <h2>Login to ProLearn</h2>
+    <h2><i class="fas fa-sign-in-alt"></i> Login to ProLearn</h2>
     <form (ngSubmit)="onLogin()">
       <div class="form-group">
-        <strong><label for="email">Email:</label></strong>
+        <strong><label for="email"><i class="fas fa-envelope"></i> Email:</label></strong>
         <input type="email" id="email" [(ngModel)]="email" name="email" required />
       </div>
       <div class="form-group">
-    <strong><label for="password">Password:</label></strong>
+        <strong><label for="password"><i class="fas fa-lock"></i> Password:</label></strong>
         <input type="password" id="password" [(ngModel)]="password" name="password" required />
       </div>
-    <strong><button type="submit" class="login-button">Login</button></strong>
+      <br>
+      <strong>
+        <button type="submit" class="login-button">
+          <i class="fas fa-sign-in-alt"></i> Login
+        </button>
+      </strong>
     </form>
-  </div>
-
-  
+</div>
+</body>
+<app-footer></app-footer>
