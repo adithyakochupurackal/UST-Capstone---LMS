@@ -1,3 +1,4 @@
+
 <app-after-login-header></app-after-login-header>
 <div class="dashboard-container" title="Dashboard">
     <!-- Sidebar -->
@@ -83,6 +84,9 @@
                 <div *ngFor="let enrolled of enrolledCourses" class="card course-item">
                     <h3 class="course-title">{{ enrolled.name }}</h3>
                     <p class="course-description">{{ enrolled.description }}</p>
+                    <app-progress-tracker></app-progress-tracker>
+                   
+                
             
                     <!-- Give Feedback Button -->
                     <button (click)="openFeedbackForm(enrolled)" class="btn-feedback">Give Feedback</button>
@@ -192,4 +196,5 @@
 
     </div>
 </div>
+
 <app-footer></app-footer>

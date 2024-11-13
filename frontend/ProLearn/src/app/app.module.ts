@@ -21,6 +21,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { HttpClientModule } from '@angular/common/http';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
 import { ChatbotComponent } from './chatbot/chatbot.component';
+import { ProgressTrackerComponent } from './progress-tracker/progress-tracker.component';
 
 
 
@@ -43,6 +44,7 @@ NgChartsModule
     AfterLoginHeaderComponent,
     BarChartComponent,
     ChatbotComponent,
+    ProgressTrackerComponent,
 
   ],
   imports: [

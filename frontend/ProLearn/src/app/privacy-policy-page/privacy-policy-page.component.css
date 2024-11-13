@@ -18,5 +18,8 @@ p {
 }
 
 .a{
-    height: 100vh;
+    height: auto;
+}
+h2{
+    margin-left: 20px;
 }

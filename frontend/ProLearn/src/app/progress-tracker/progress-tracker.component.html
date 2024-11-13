@@ -1,0 +1,11 @@
+<div class="progress-container" (mouseenter)="onHover()" (mouseleave)="onLeave()">
+    <svg width="120" height="120" viewBox="0 0 120 120">
+      <circle cx="60" cy="60" r="50" class="progress-ring-bg" />
+      <circle cx="60" cy="60" r="50" class="progress-ring">
+      </circle>
+    </svg>
+    <div class="percentage" *ngIf="hovered">
+      <div class="percentage-text">{{ progress }}%</div>
+    </div>
+  </div>
+  

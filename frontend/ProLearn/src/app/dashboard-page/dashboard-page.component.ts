@@ -328,5 +328,20 @@ isEnrolled(courseId: number): boolean {
     // Close the form after submission
     this.closeFeedbackForm();
   }
-  
+
+  randomProgress: number = 0;
+    hoveredCourse: any = null;
+
+    showProgress(enrolled: any) {
+        this.randomProgress = Math.floor(Math.random() * 100) + 1; // Random percentage from 1 to 100
+        this.hoveredCourse = enrolled;
+    }
+
+    hideProgress() {
+        this.hoveredCourse = null;
+    }
+
+    getRandomProgress(enrolled: any) {
+        return this.hoveredCourse === enrolled ? `${this.randomProgress}%` : '0%';
+    }
 }
