@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-interface Course
-{
+
+interface Course {
   courseId: number;
   name: string;
   description: string;
@@ -12,136 +12,115 @@ interface Course
   rating: number;
   isEnrolled: boolean;
 }
-interface CourseFeedback
-{
-  courseFeedback:string,
-  courseId:number,
-  name:string,
-  courseRating:number
+
+interface CourseFeedback {
+  courseFeedback: string;
+  courseId: number;
+  name: string;
+  courseRating: number;
 }
-export interface Student
-{
+
+export interface Student {
   studentName: string;
   studentEmail: string;
   studentPassword: string;
-}interface Enrollment
-{
-  enrollmentId:number,
-  studentId:number,
-  courseId:number
 }
+
+interface Enrollment {
+  enrollmentId: number;
+  studentId: number;
+  courseId: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  private getallurlcourse='http://localhost:8081/course/getAll';
-  //private geturlstudent='http://localhost:8001/api/addStudent';
-  private enrollurl='http://localhost:8081/enrollment/enroll';
-  private enrollstudentUrl='http://localhost:8081/enrollment/student/1';
-  private feedbackUrl='http://localhost:8081/feedback/addFeedback';
-  private assignmentUrl='http://localhost:8081/assignment/submit';
-  private coursefeedbackUrl='http://localhost:8081/feedbackcourses/addFeedback';
-  private registerurl='http://localhost:8081/api/addStudent';
-  private loginurl='http://localhost:8081/api/token';
-  constructor(private http: HttpClient,private router: Router){}
- 
-  token:string=''
+  private getallurlcourse = 'http://localhost:8081/course/getAll';
+  private enrollurl = 'http://localhost:8081/enrollment/enroll';
+  private enrollstudentUrl = 'http://localhost:8081/enrollment/student';
+  private feedbackUrl = 'http://localhost:8081/feedback/addFeedback';
+  private assignmentUrl = 'http://localhost:8081/assignment/submit';
+  private coursefeedbackUrl = 'http://localhost:8081/feedbackcourses/addFeedback';
+  private registerurl = 'http://localhost:8081/api/addStudent';
+  private loginurl = 'http://localhost:8081/api/token';
+
+  constructor(private http: HttpClient, private router: Router) {}
+
+  token: string = '';
   private getHeaders() {
     return new HttpHeaders({
       'Authorization': `Bearer ${this.getToken()}`,
       'Content-Type': 'application/json'
     });
   }
-  getAllCourses(): Observable<Course[]>
-  {
+
+  getAllCourses(): Observable<Course[]> {
     const headers = this.getHeaders();
-    //console.log("headers   :",headers)
-    //console.log("token   :",this.getToken())
-    return this.http.get<Course[]>(this.getallurlcourse,{headers});
+    return this.http.get<Course[]>(this.getallurlcourse, { headers });
   }
-  enrollStudent(studentId:number, courseId:number): Observable<any>
-  {
-    const headers=this.getHeaders();
-    console.log(studentId,courseId)
-    const enrollmentData={"studentId":studentId,"courseId":courseId};
-    return this.http.post<any>(this.enrollurl,enrollmentData,{headers});
+
+  enrollStudent(studentId: number, courseId: number): Observable<any> {
+    const headers = this.getHeaders();
+    const enrollmentData = { "studentId": studentId, "courseId": courseId };
+    return this.http.post<any>(this.enrollurl, enrollmentData, { headers });
   }
-  getEnrolledCourses(studentId:number): Observable<Enrollment[]>
-  {
-    const headers=this.getHeaders();
-    return this.http.get<Enrollment[]>(this.enrollstudentUrl);
+
+  getEnrolledCourses(studentId: number): Observable<Enrollment[]> {
+
+    const headers = this.getHeaders();
+
+    // Corrected string interpolation with backticks
+    return this.http.get<Enrollment[]>(`${this.enrollstudentUrl}/${localStorage.getItem("studentId")}`, { headers });
   }
-  submitFeedback(f:{name:string,feedbackDescription:string}):Observable<any>
-  {
-    const headers=this.getHeaders();
-    return this.http.post<any>(this.feedbackUrl,f,{headers});
+
+  submitFeedback(f: { name: string, feedbackDescription: string }): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.post<any>(this.feedbackUrl, f, { headers });
   }
-  submitAssignment(file:File):Observable<any>
-  {
-    const formData=new FormData();
-    formData.append('file',file,file.name);
-    formData.append('enrollmentID','1');
-    const headers=new HttpHeaders();
-    return this.http.post(this.assignmentUrl,formData,{headers,responseType:'text'});
+
+  submitAssignment(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    formData.append('enrollmentID', '1');  // You can replace '1' with dynamic data
+    const headers = new HttpHeaders();
+    return this.http.post(this.assignmentUrl, formData, { headers, responseType: 'text' });
   }
-  submitCourseFeedback(f:{
-    courseFeedback:string,courseId:number,courseName:String,courseRating:number}):Observable<any>
-  {
-    const headers=this.getHeaders();
-    return this.http.post<any>(this.coursefeedbackUrl,f,{headers});
+
+  submitCourseFeedback(f: {
+    courseFeedback: string, courseId: number, courseName: string, courseRating: number
+  }): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.post<any>(this.coursefeedbackUrl, f, { headers });
   }
-  register(student:{studentName:string,studentEmail:string,studentPassword:string}):Observable<any>
-  {
-    return this.http.post(this.registerurl,student)
+
+  register(student: { studentName: string, studentEmail: string, studentPassword: string }): Observable<any> {
+    return this.http.post(this.registerurl, student);
   }
-  login(s:{studentEmail:string,studentPassword:string}):Observable<any>
-  {
-    console.log("in service api",this.http.post<any>(this.loginurl,s))
-    return this.http.post<any>(this.loginurl,s)
+
+  login(s: { studentEmail: string, studentPassword: string }): Observable<any> {
+    return this.http.post<any>(this.loginurl, s);
   }
-  saveToken(token:string)
-  {
-    localStorage.setItem("JWTtoken",token)
-    console.log("Token   :",token);
-    this.token=token;
+
+  saveToken(token: string): void {
+    localStorage.setItem("JWTtoken", token);
+    this.token = token;
   }
-  getToken():String|null
-  {
+
+  getToken(): string | null {
     return localStorage.getItem("JWTtoken");
   }
 
   logout(): void {
-    // Clear the JWT token from localStorage
     localStorage.removeItem("JWTtoken");
-  
-    // Optional: Clear all items in localStorage (this will remove everything stored in localStorage)
     localStorage.clear();
-  
-    // Optionally, clear sessionStorage if any data is stored there
     sessionStorage.clear();
-  
-    // Reset token in the service
-    this.token = '';  // Clear the token in the service
-  
-    // Optionally, reset other state variables or services
-    // For example, if you have user-related data in a service, reset them
-    // this.userService.clearUserData();  // Reset any user-related data
-  
+    this.token = '';
     console.log("User logged out and all data cleared.");
-    alert("Logout is Sucessfull!")
-  
-    // Navigate to the login page
+    alert("Logout is Successful!");
     this.router.navigate(['/login']);
   }
-  saveStudentId(studentId: number): void {
-    // Save the studentId to localStorage
-    localStorage.setItem("StudentId", studentId.toString());  // LocalStorage stores data as strings
-    console.log("StudentId:", studentId);  // Log the studentId
+  saveStudentId(studentId:string): void{
+    localStorage.setItem("studentId",studentId);
   }
-  
-  getStudentId(): number | null {
-    // Retrieve the studentId from localStorage and return as a number
-    const studentId = localStorage.getItem("StudentId");
-    return studentId ? parseInt(studentId, 10) : null;  // Parse it to number or return null if not found
-  }
-}  
+}

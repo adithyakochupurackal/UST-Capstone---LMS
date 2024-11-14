@@ -1,32 +1,27 @@
-import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
-import { timeout, catchError } from 'rxjs';
-import { throwError } from 'rxjs';
-interface Course 
-{
-  courseId:number;
+
+interface Course {
+  courseId: number;
   name: string;
   description: string;
   category: string;
   rating: number;
-  isEnrolled:boolean
+  isEnrolled: boolean;
 }
-interface Enrollment
-{
-  enrollmentId:number;
-  studentId:number;
-  courseId:number;
+interface Enrollment {
+  enrollmentId: number;
+  studentId: number;
+  courseId: number;
 }
-interface Assignment 
-{
+interface Assignment {
   id: number;
   title: string;
   description: string;
   dueDate: Date;
   status: string;
 }
-interface EnrolledCourse 
-{
+interface EnrolledCourse {
   name: string;
   description: string;
   status: string;
@@ -34,20 +29,20 @@ interface EnrolledCourse
   showFeedback?: boolean;
   feedbackText?: string;
 }
-interface Feedback
-{
-  name:string;
-  feedbackDescription:string;
+interface Feedback {
+  name: string;
+  feedbackDescription: string;
 }
+
 @Component({
   selector: 'app-dashboard-page',
   templateUrl: './dashboard-page.component.html',
   styleUrls: ['./dashboard-page.component.css']
 })
-export class DashboardPageComponent implements OnInit{
-constructor(private ApiService:ApiService){}
-  studentId:any;
-  course:any;
+export class DashboardPageComponent implements OnInit {
+
+  studentId: number = 0; // Declare and initialize studentId
+  course: any;
   currentView: string = 'courses';
   searchTerm: string = '';
   selectedCategory: string = '';
@@ -55,51 +50,61 @@ constructor(private ApiService:ApiService){}
   courses: Course[] = [];
   filteredCourses: Course[] = [];
   uniqueCategories: string[] = [];
-  enrolledCourses:Course[]=[];
+  enrolledCourses: Course[] = [];
+
+  constructor(private ApiService: ApiService) {}
 
   ngOnInit(): void {
     this.loadCourses();
     this.getEnrolledCourses();
-    this.studentId = this.ApiService.getStudentId();
-}
-
-loadCourses(): void {
-    // Check if courses are already in local storage
-    const storedCourses = localStorage.getItem('courses');
+    this.studentId=this.loadUserId();
     
+    // Async call to get studentId
+    // this.loadStudentId();
+  }
+  loadUserId(){
+    const studId = localStorage.getItem("studentId");
+    return studId ? + studId: 0;
+
+  }
+  // async loadStudentId() {
+  //   try {
+  //     const studentId = await this.ApiService.getStudentId().toPromise();
+  //     this.k = studentId !== null ? Number(studentId) : 0; // Default to 0 if null
+  //     console.log(this.k); // Logs the studentId (as number or 0).
+  //   } catch (error) {
+  //     console.error('Error fetching studentId:', error);
+  //   }
+  // }
+  
+  
+
+  loadCourses(): void {
+    const storedCourses = localStorage.getItem('courses');
+
     if (storedCourses) {
-        // Load from local storage if available
-        this.courses = JSON.parse(storedCourses);
-        this.filteredCourses = this.courses;
-        this.enrolledCourses = this.courses.filter(course => course.isEnrolled);
-        this.uniqueCategories = this.getUniqueCategories(this.courses);
+      this.courses = JSON.parse(storedCourses);
+      this.filteredCourses = [...this.courses]; // Clone the courses array
+      this.enrolledCourses = this.courses.filter(course => course.isEnrolled);
+      this.uniqueCategories = this.getUniqueCategories(this.courses);
     } else {
-        // Otherwise, fetch from API
-        this.ApiService.getAllCourses().subscribe({
-            next: (courses) => {
-                this.courses = courses;
-
-                // Store courses in local storage
-                localStorage.setItem('courses', JSON.stringify(courses));
-
-                // Set filtered and enrolled courses
-                this.filteredCourses = this.courses;
-                this.enrolledCourses = this.courses.filter(course => course.isEnrolled);
-                this.uniqueCategories = this.getUniqueCategories(this.courses);
-            },
-            error: (err) => {
-                console.error('Error fetching courses: ', err);
-            }
-        });
+      this.ApiService.getAllCourses().subscribe({
+        next: (courses) => {
+          this.courses = courses;
+          localStorage.setItem('courses', JSON.stringify(courses));
+          this.filteredCourses = [...this.courses];
+          this.enrolledCourses = this.courses.filter(course => course.isEnrolled);
+          this.uniqueCategories = this.getUniqueCategories(this.courses);
+        },
+        error: (err) => {
+          console.error('Error fetching courses:', err);
+        }
+      });
     }
-}
+  }
 
-// ngDoCheck(): void {
-//   this.getEnrolledCourses();
-// }
- 
-  getUniqueCategories(filteredCourses: Course[]): string[] {
-    return Array.from(new Set(this.courses.map(course => course.category)));
+  getUniqueCategories(courses: Course[]): string[] {
+    return Array.from(new Set(courses.map(course => course.category)));
   }
 
   filterCourses(): void {
@@ -119,7 +124,7 @@ loadCourses(): void {
     this.searchTerm = '';
     this.selectedCategory = '';
     this.selectedRating = '';
-    this.filteredCourses = this.courses;
+    this.filteredCourses = [...this.courses]; // Reset filters by cloning courses again
   }
 
   navigateTo(view: string): void {
@@ -139,48 +144,42 @@ loadCourses(): void {
     this.filterCourses();
   }
 
-  // onFileSelected(event: Event, assignment: Assignment): void {
-  //   const fileInput = event.target as HTMLInputElement;
-  //   if (fileInput && fileInput.files && fileInput.files.length > 0) {
-  //     const file = fileInput.files[0];
-  //     console.log(`File selected for assignment ${assignment.title}: ${file.name}`);
-  //   }
-  // }
-
   enroll(courseId: number): void {
     this.ApiService.enrollStudent(this.studentId, courseId).subscribe(
-        response => {
-            console.log('Enrolled successfully:', response);
-
-            // Find the course to enroll in
-            let courseToEnroll = this.courses.find(course => course.courseId === courseId);
-            
-            if (courseToEnroll) {
-                console.log(courseToEnroll);
-
-                // Check if the course is already in enrolledCourses
-                if (!this.isEnrolled(courseToEnroll.courseId)) {
-                    // Add the course to the enrolledCourses array
-                    this.enrolledCourses.push(courseToEnroll);
-                    alert(`You have been successfully enrolled in: ${courseToEnroll.name}`);
-                } else {
-                    alert('You are already enrolled in this course.');
-                }
-            }
-
-            console.log(this.enrolledCourses);
-        },
-        error => {
-            console.error('Error enrolling:', error);
-            alert('Error: Unable to enroll. Please try again later.');
-        }
-    );
-}
-
-isEnrolled(courseId: number): boolean {
-    return this.enrolledCourses.some(course => course.courseId === courseId);
-}
+      response => {
+        console.log('Enrolled successfully:', response);
   
+        // Find the course to enroll in
+        let courseToEnroll = this.courses.find(course => course.courseId === courseId);
+        if (courseToEnroll) {
+          if (!this.isEnrolled(courseToEnroll.courseId)) {
+            this.enrolledCourses.push(courseToEnroll);
+            alert(`You have been successfully enrolled in: ${courseToEnroll.name}`);
+          } else {
+            alert('You are already enrolled in this course.');
+          }
+        }
+      },
+      error => {
+        // Handle specific error codes
+        if (error.status === 500) {
+          console.error("Internal Server Error: Something went wrong with the server.");
+          alert('There was an issue enrolling you in the course. Please try again later.');
+        } else if (error.status === 409) {
+          // Handle Conflict error when student is already enrolled
+          console.error("Conflict: You are already enrolled in this course.");
+          alert('You are already enrolled in this course.');
+        } else {
+          console.error("An unexpected error occurred: ", error);
+          alert('An unexpected error occurred. Please try again later.');
+        }
+      }
+    );
+  }
+  
+  isEnrolled(courseId: number): boolean {
+    return this.enrolledCourses.some(course => course.courseId === courseId);
+  }
 
   toggleFeedback(enrolled: EnrolledCourse): void {
     enrolled.showFeedback = !enrolled.showFeedback; // Toggle feedback textbox visibility
@@ -192,44 +191,17 @@ isEnrolled(courseId: number): boolean {
     enrolled.showFeedback = false;
   }
 
-  
-  
-  // getEnrolledCourses(): void 
-  // {
-  //   this.ApiService.getEnrolledCourses(this.studentId).subscribe({
-  //       next: (enrollments: Enrollment[]) => {
-  //           this.enrolledCourses = enrollments.map((enrollment) => ({
-  //               courseId: enrollment.courseId,
-  //               name: `Course Name ${enrollment.courseId}`,
-  //               description: `Description for course ${enrollment.courseId}`,
-  //               category: 'Category for course',
-  //               rating: 4,
-  //               isEnrolled: true
-  //           }));
-  //       },
-  //       error: (err) => {
-  //           console.error('Error fetching enrolled courses: ', err);
-  //       }
-  //   });
-  //   }
- 
-  
-  // 
   getEnrolledCourses(): void {
-    const TIMEOUT_DURATION = 100; // Timeout in milliseconds (10 seconds)
-  
+    const TIMEOUT_DURATION = 10; // Timeout in milliseconds (10 seconds)
+
     this.ApiService.getEnrolledCourses(this.studentId).subscribe({
       next: (enrollments: Enrollment[]) => {
         const storedCourses = localStorage.getItem('courses');
-  
         if (storedCourses) {
           const courses: Course[] = JSON.parse(storedCourses);  // Define courses type as Course[]
-  
-          // Map enrolled courses with detailed information
+
           this.enrolledCourses = enrollments.map((enrollment) => {
-            // Find the course in the stored courses using courseId
-            const courseDetails = courses.find((course: Course) => course.courseId === enrollment.courseId);  // Specify type for 'course'
-  
+            const courseDetails = courses.find((course: Course) => course.courseId === enrollment.courseId);
             if (courseDetails) {
               return {
                 courseId: courseDetails.courseId,
@@ -260,36 +232,32 @@ isEnrolled(courseId: number): boolean {
       }
     });
   }
-  
-  
 
-  
   file: File | null = null;
   message: string = '';
   success: boolean = false;
+
   onFileSelected(event: any): void {
     this.file = event.target.files[0];
   }
+
   onSubmitAssignment(): void {
-    console.log("you assignment got submitted successfully",this.file)
+    console.log("Your assignment was submitted successfully", this.file);
     if (this.file) {
-      this.ApiService.submitAssignment(this.file)
-        .subscribe(
-          (response)=> 
-          {
-            this.success=true;
-            this.message='Assignment submitted successfully!';
-            console.log("you assignment got submitted successfully",this.file)
-          },
-          (error)=> 
-          {
-            this.success=false;
-            this.message='Error submitting assignment: ' + error.error.message;
-          }
-        );
+      this.ApiService.submitAssignment(this.file).subscribe(
+        (response) => {
+          this.success = true;
+          this.message = 'Assignment submitted successfully!';
+          console.log("Your assignment was submitted successfully", this.file);
+        },
+        (error) => {
+          this.success = false;
+          this.message = 'Error submitting assignment: ' + error.error.message;
+        }
+      );
     } else {
-      this.success=false;
-      this.message='Please fill in all the fields.';
+      this.success = false;
+      this.message = 'Please fill in all the fields.';
     }
   }
 
@@ -297,29 +265,18 @@ isEnrolled(courseId: number): boolean {
     name: '',
     feedbackDescription: ''
   };
-  
+
   submitFeedbackForm(): void {
     console.log('Feedback submitted:', this.feedback);
-    
-    // Call the API to submit the feedback
+
     this.ApiService.submitFeedback(this.feedback).subscribe(
       (response) => {
-        // On successful submission, log the response
         console.log("Your feedback is successfully added", response);
-  
-        // Show an alert to the user indicating successful feedback submission
         alert('Thank you! Your feedback has been submitted successfully.');
-  
-        // Clear the form by resetting the feedback object after the alert
-        this.feedback = {
-          name: '',
-          feedbackDescription: ''
-        };
-  
+        this.feedback = { name: '', feedbackDescription: '' };
       },
       (error) => {
-        // Log any errors during submission
-        console.log("There is an error while adding your feedback", error);
+        console.log("Error while adding your feedback", error);
         alert('Oops! Something went wrong. Please try again later.');
       }
     );
@@ -340,29 +297,38 @@ isEnrolled(courseId: number): boolean {
     this.feedbackCourses = { rating: null, feedbackText: '' };
   }
 
-  submitFeedbackCourses() {
-    // Handle the feedback submission logic here
-    console.log('Feedback submitted for', this.selectedCourse.name);
-    console.log('Rating:', this.feedbackCourses.rating);
-    console.log('Feedback:', this.feedbackCourses.feedbackText);
+  randomProgress: number = 0;
+  hoveredCourse: any = null;
 
-    // Close the form after submission
-    this.closeFeedbackForm();
+  showProgress(enrolled: any) {
+    this.randomProgress = Math.floor(Math.random() * 100) + 1; // Random percentage from 1 to 100
+    this.hoveredCourse = enrolled;
   }
 
-  randomProgress: number = 0;
-    hoveredCourse: any = null;
+  hideProgress() {
+    this.hoveredCourse = null;
+  }
 
-    showProgress(enrolled: any) {
-        this.randomProgress = Math.floor(Math.random() * 100) + 1; // Random percentage from 1 to 100
-        this.hoveredCourse = enrolled;
-    }
+  getRandomProgress(enrolled: any) {
+    return this.hoveredCourse === enrolled ? `${this.randomProgress}%` : '0%';
+  }
 
-    hideProgress() {
-        this.hoveredCourse = null;
-    }
+  courseFeedback = {
+    courseFeedback: '',
+    courseId: 0,
+    courseName: '',
+    courseRating: 0
+  };
 
-    getRandomProgress(enrolled: any) {
-        return this.hoveredCourse === enrolled ? `${this.randomProgress}%` : '0%';
-    }
+  submitFeedbackCourses(courseId: number, courseName: string) {
+    console.log('Feedback submitted for', this.selectedCourse.name);
+    console.log(this.courseFeedback);
+    alert('Thank you! Your feedback has been submitted successfully!');
+    this.showFeedbackForm = false;
+  }
+
+  showRating(course: any) {
+    const ratings = [1, 2, 3, 4, 5];
+    return ratings.includes(course.rating);
+  }
 }

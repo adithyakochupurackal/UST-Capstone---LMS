@@ -10,6 +10,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import com.ust.jwt.dto.AuthRequest;
+import com.ust.jwt.dto.UserResponse;
 import com.ust.jwt.entity.Student;
 import com.ust.jwt.service.AuthService;
 @RestController
@@ -58,7 +59,7 @@ public class AuthController {
     
     
     @PostMapping("/token")
-    public ResponseEntity<Map<String, String>> getToken(@RequestBody AuthRequest authRequest) {
+    public ResponseEntity<UserResponse> getToken(@RequestBody AuthRequest authRequest) {
         System.out.println("token endpoint..." + authRequest.getStudentEmail());
         System.out.println(authRequest);
         Authentication authenticate=authenticationManager.authenticate(
@@ -68,15 +69,14 @@ public class AuthController {
         if (authenticate.isAuthenticated()) 
         {
             System.out.println(authRequest.getStudentEmail());
-            String token=service.generateToken(authRequest.getStudentEmail());
-            response.put("token", token);
-            return new ResponseEntity<>(response,HttpStatus.OK);
+            UserResponse user = service.generateToken(authRequest.getStudentEmail());
+            return new ResponseEntity<>(user,HttpStatus.OK);
         } 
         else
         {
             System.out.println("invalid access");
             response.put("error","invalid access");
-            return new ResponseEntity<>(response,HttpStatus.UNAUTHORIZED);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
     @GetMapping("/validate")

@@ -17,12 +17,13 @@ export class LoginPageComponent {
 
   onLogin() {
     this.apiService.login(this.credentials).subscribe({
-      next: (response: any) => {
+      next: (response: {token:string,studentId:number}) => {
         // Successfully logged in
         console.log("User successfully logged in");
 
         // Save the JWT token to localStorage via the ApiService
         this.apiService.saveToken(response.token);
+        this.apiService.saveStudentId(response.studentId.toLocaleString());
 
         // Redirect to the dashboard page
         this.router.navigate(['/dashboard']);

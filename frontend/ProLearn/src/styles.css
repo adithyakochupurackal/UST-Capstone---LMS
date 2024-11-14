@@ -63,7 +63,6 @@ h1, h2, h3, h4, h5, h6 {
     flex: 1; /* This will push the footer down */
 }
 
-/* Blurred Scrollbar */
 ::-webkit-scrollbar {
     width: 0px;  /* Slim width for modern look */
     height: 0px; /* Slim height for horizontal scrollbar */
