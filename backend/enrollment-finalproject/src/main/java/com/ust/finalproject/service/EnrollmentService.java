@@ -15,19 +15,19 @@ public class EnrollmentService
     private EnrollmentRepository enrollmentRepository;
     @Autowired
     private RestTemplate restTemplate;
-    private static final String STUDENT_SERVICE_URL="http://localhost:2255/api/";
-    private static final String COURSE_SERVICE_URL="http://localhost:8000/api/";
-    public Enrollment enrollStudent(int studentId,int courseId) 
+    private static final String STUDENT_SERVICE_URL="http://localhost:8001/api/";
+    private static final String COURSE_SERVICE_URL="http://localhost:8000/course/";
+    public Enrollment enrollStudent(Enrollment enrollment) 
     {
-        Student student=restTemplate.getForObject(STUDENT_SERVICE_URL+studentId, Student.class);
-        Courses course = restTemplate.getForObject(COURSE_SERVICE_URL+courseId, Courses.class);
-        if (student==null||course==null) 
-        {
-            throw new RuntimeException("Student or Course not found");
-        }
-        Enrollment enrollment=new Enrollment();
-        enrollment.setStudentId(studentId);
-        enrollment.setCourseId(courseId);
+//        Student student=restTemplate.getForObject(STUDENT_SERVICE_URL+studentId, Student.class);
+//        Courses course = restTemplate.getForObject(COURSE_SERVICE_URL+courseId, Courses.class);
+//        if (student==null||course==null) 
+//        {
+//            throw new RuntimeException("Student or Course not found");
+//        }
+//        Enrollment enrollment=new Enrollment();
+//        enrollment.setStudentId(studentId);
+//        enrollment.setCourseId(courseId);
         return enrollmentRepository.save(enrollment);
     }
     public List<Enrollment> getEnrollmentsByStudentId(int studentId) 

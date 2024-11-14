@@ -17,7 +17,6 @@ import com.ust.finalproject.model.Assignment;
 import com.ust.finalproject.service.AssignmentService;
 @RestController
 @RequestMapping("/assignment")
-@CrossOrigin()
 public class AssignmentController 
 {
 	@Autowired
