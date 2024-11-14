@@ -76,39 +76,46 @@
                 </div>
             </div>
 
-            <!-- Enrolled Courses View -->
-            <div *ngSwitchCase="'enrolledCourses'" class="ngSwitchCase">
-                <h2 class="section-title">Enrolled Courses</h2>
-                <p class="section-description">Here you can see the courses you are enrolled in.</p>
-            
-                <div *ngFor="let enrolled of enrolledCourses" class="card course-item">
-                    <h3 class="course-title">{{ enrolled.name }}</h3>
-                    <p class="course-description">{{ enrolled.description }}</p>
-                    <app-progress-tracker></app-progress-tracker>
-                   
-                
-            
-                    <!-- Give Feedback Button -->
-                    <button (click)="openFeedbackForm(enrolled)" class="btn-feedback">Give Feedback</button>
-            
-                    <!-- Feedback Form inside a card -->
-                    <div *ngIf="showFeedbackForm && selectedCourse === enrolled" class="card feedback-card">
-                        <h3>Provide Feedback for {{ enrolled.name }}</h3>
-                        <form (ngSubmit)="submitFeedbackCourses()">
-                            <div class="form-group">
-                                <label for="rating">Rating (1 to 5):</label>
-                                <input type="number" id="rating" [(ngModel)]="feedbackCourses.rating" name="rating" min="1" max="5" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="feedbackText">Feedback:</label>
-                                <textarea id="feedbackText" [(ngModel)]="feedbackCourses.feedbackText" name="feedbackText" rows="4" required></textarea>
-                            </div>
-                            <button type="submit" class="btn-submit">Submit Feedback</button>
-                            <button type="button" (click)="closeFeedbackForm()" class="btn-cancel">Cancel</button>
-                        </form>
-                    </div>
+           <!-- Enrolled Courses View -->
+<div *ngSwitchCase="'enrolledCourses'" class="enrolled-courses">
+    <h2 class="section-title">Enrolled Courses</h2>
+    <p class="section-description">Here you can see the courses you are enrolled in.</p>
+
+    <div *ngFor="let enrolled of enrolledCourses" class="card course-item">
+        <!-- Course Details -->
+        <h3 class="course-title">{{ enrolled.name }}</h3>
+        <p class="course-description">{{ enrolled.description }}</p>
+        <h3 class="course-description">Progress:</h3>
+        <dir class="new">
+            <!-- Progress Tracker Component -->
+            <app-progress-tracker class="inline-component"></app-progress-tracker>
+        </dir>
+        
+
+        <!-- Give Feedback Button -->
+        <button (click)="openFeedbackForm(enrolled)" class="btn-feedback">Give Feedback</button>
+
+        <!-- Feedback Form -->
+        <div *ngIf="showFeedbackForm && selectedCourse === enrolled" class="card feedback-card">
+            <h3>Provide Feedback for {{ enrolled.name }}</h3>
+            <form (ngSubmit)="submitFeedbackCourses()">
+                <div class="form-group">
+                    <label for="rating">Rating (1 to 5):</label>
+                    <input type="number" id="rating" [(ngModel)]="feedbackCourses.rating" name="rating" min="1" max="5" required>
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="feedbackText">Feedback:</label>
+                    <textarea id="feedbackText" [(ngModel)]="feedbackCourses.feedbackText" name="feedbackText" rows="4" required></textarea>
+                </div>
+                <div class="button-group">
+                    <button type="submit" class="btn-submit">Submit Feedback</button>
+                    <button type="button" (click)="closeFeedbackForm()" class="btn-cancel">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
             
             
             
@@ -119,29 +126,16 @@
                 <h2>Assignments</h2>
                 <p>Here you can check your pending assignments.</p>
                 <div *ngFor="let assignment of enrolledCourses" class="card assignment-item">
-                    <!-- <h3>{{ assignment.title }}</h3> -->
-                    <!-- <p>{{ assignment.description }}</p>
-                    <p><strong>Due Date:</strong> {{ assignment.dueDate | date }}</p>
-                    <p><strong>Status:</strong> {{ assignment.status }}</p> -->
-
-                    <div class="container">
+                    <h3>{{ assignment.name }}</h3>
+                    <p>{{ assignment.description }}</p>
                         <form (ngSubmit)="onSubmitAssignment()" enctype="multipart/form-data">
                             
-                            <!-- File upload input -->
-                            <label type="file"
-                            for="fileInput"
-                            class="upload-label">Choose file</label>
-                            <input 
-                            type="file" 
-                            id="fileInput" 
-                            class="file-input" 
-                            (change)="onFileSelected($event)" 
-                            required/>
-
-                            <!-- Submit button -->
-                            <button type="submit" [disabled]="!file" class="submit-button">Submit</button>
+                            <div class="file-upload-container">
+                                <label for="fileInput" class="upload-label">Choose file</label>
+                                <input type="file" id="fileInput" class="file-input" (change)="onFileSelected($event)" required/>
+                                <button type="submit" [disabled]="!file" class="submit-button">Submit</button>
+                              </div>
                         </form>
-                    </div>
                 </div>
             </div>
 

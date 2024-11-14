@@ -601,3 +601,71 @@ input.ng-valid.ng-touched, textarea.ng-valid.ng-touched {
         width: 100%;
     }
 }
+
+/* Container for file input */
+.file-upload-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    max-width: 400px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+  }
+
+  .new {
+    align-items: center;  /* Vertically centers the items */
+}
+
+.course-description {
+    margin-right: 10px;
+}
+
+.inline-component {
+    display: inline-block; /* Ensures the progress tracker stays inline */
+}
+
+  
+  /* File input label styling */
+  .upload-label {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .upload-label:hover {
+    background-color: #0056b3;
+  }
+  
+  /* File input hidden styling */
+  .file-input {
+    display: none;
+  }
+  
+  /* Submit button styling */
+  .submit-button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #218838;
+  }
+  
+  .submit-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  

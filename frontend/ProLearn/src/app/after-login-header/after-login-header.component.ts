@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-after-login-header',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./after-login-header.component.css']
 })
 export class AfterLoginHeaderComponent {
+  constructor(private apiService: ApiService) {}
+  onLogout() {
+    this.apiService.logout();
 
+}
 }

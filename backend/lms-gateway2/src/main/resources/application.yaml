@@ -1,0 +1,63 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: student
+          uri: lb://STUDENT
+          predicates:
+            - Path=/api/**
+          filters:
+            - name: AuthenticationFilter
+
+        - id: courses
+          uri: lb://COURSES
+          predicates:
+            - Path=/course/**
+          filters:
+            - name: AuthenticationFilter
+
+        - id: enrollment
+          uri: lb://ENROLLMENT
+          predicates:
+            - Path=/enrollment/**
+          filters:
+            - name: AuthenticationFilter
+
+        - id: assignment
+          uri: lb://ASSIGNMENT
+          predicates:
+            - Path=/assignment/**
+          filters:
+            - name: AuthenticationFilter
+
+        - id: feedback
+          uri: lb://FEEDBACK
+          predicates:
+            - Path=/feedback/**
+          filters:
+            - name: AuthenticationFilter
+
+        - id: feedbackcourses
+          uri: lb://FEEDBACKCOURSES
+          predicates:
+            - Path=/feedbackcourses/**
+          filters:
+            - name: AuthenticationFilter
+
+      default-filters:
+        - name: DedupeResponseHeader
+          args:
+            headers: Access-Control-Allow-Origin
+            strategy: RETAIN_FIRST
+
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:4200"
+            allowedHeaders: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - DELETE
+              - PUT
+              - OPTIONS

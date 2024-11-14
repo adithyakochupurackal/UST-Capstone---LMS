@@ -8,24 +8,22 @@
 <app-header></app-header>
 <body class="a">
   
-<div class="login-container">
-    <h2><i class="fas fa-sign-in-alt"></i> Login to ProLearn</h2>
-    <form (ngSubmit)="onLogin()">
-      <div class="form-group">
-        <strong><label for="email"><i class="fas fa-envelope"></i> Email:</label></strong>
-        <input type="email" id="email" [(ngModel)]="email" name="email" required />
-      </div>
-      <div class="form-group">
-        <strong><label for="password"><i class="fas fa-lock"></i> Password:</label></strong>
-        <input type="password" id="password" [(ngModel)]="password" name="password" required />
-      </div>
-      <br>
-      <strong>
-        <button type="submit" class="login-button">
-          <i class="fas fa-sign-in-alt"></i> Login
-        </button>
-      </strong>
-    </form>
-</div>
+  <div class="login-container">
+      <h2>Login to ProLearn</h2>
+      <form (ngSubmit)="onLogin()">
+        <div class="form-group">
+          <strong><label for="studentEmail">Email:</label></strong>
+          <input type="email" id="studentEmail" [(ngModel)]="credentials.studentEmail" name="studentEmail" required />
+        </div>
+        <div class="form-group">
+          <strong><label for="studentPassword">Password:</label></strong>
+          <input type="password" id="studentPassword" [(ngModel)]="credentials.studentPassword" name="studentPassword" required />
+        </div>
+        <strong>
+          <button type="submit" class="login-button">Login</button>
+        </strong>
+      </form>
+  </div>
+
 </body>
 <app-footer></app-footer>

@@ -46,7 +46,7 @@ interface Feedback
 })
 export class DashboardPageComponent implements OnInit{
 constructor(private ApiService:ApiService){}
-    studentId=1;
+  studentId:any;
   course:any;
   currentView: string = 'courses';
   searchTerm: string = '';
@@ -57,44 +57,41 @@ constructor(private ApiService:ApiService){}
   uniqueCategories: string[] = [];
   enrolledCourses:Course[]=[];
 
-
-  assignments: Assignment[] = [
-    { id: 1, title: 'Assignment 1', description: 'Complete the Angular project.', dueDate: new Date(), status: 'Pending' },
-    { id: 2, title: 'Assignment 2', description: 'Implement a REST API in Java.', dueDate: new Date(), status: 'Completed' }
-  ];
-
-  feedbackList = [
-    { courseName: 'Angular Basics', comment: 'Great course!', rating: 5 },
-    { courseName: 'Advanced Java', comment: 'Very informative.', rating: 4 }
-  ];
-
-  performanceData = [
-    { metricName: 'Course Completion', score: '80%', comparison: 'Above Average' },
-    { metricName: 'Assignments Completed', score: '90%', comparison: 'Excellent' }
-  ];
   ngOnInit(): void {
     this.loadCourses();
     this.getEnrolledCourses();
+    this.studentId = this.ApiService.getStudentId();
 }
 
 loadCourses(): void {
-    this.ApiService.getAllCourses().subscribe({
-        next: (courses) => {
-            this.courses = courses;
+    // Check if courses are already in local storage
+    const storedCourses = localStorage.getItem('courses');
+    
+    if (storedCourses) {
+        // Load from local storage if available
+        this.courses = JSON.parse(storedCourses);
+        this.filteredCourses = this.courses;
+        this.enrolledCourses = this.courses.filter(course => course.isEnrolled);
+        this.uniqueCategories = this.getUniqueCategories(this.courses);
+    } else {
+        // Otherwise, fetch from API
+        this.ApiService.getAllCourses().subscribe({
+            next: (courses) => {
+                this.courses = courses;
 
-            // Get all courses
-            this.filteredCourses = this.courses;  // This holds all the courses
+                // Store courses in local storage
+                localStorage.setItem('courses', JSON.stringify(courses));
 
-            // Filter enrolled courses
-            this.enrolledCourses = this.courses.filter(course => course.isEnrolled);  // Holds enrolled courses
-
-            // If you need the unique categories, you can extract them from the filtered courses
-            this.uniqueCategories = this.getUniqueCategories(this.courses);
-        },
-        error: (err) => {
-            console.error('Error fetching courses: ', err);
-        }
-    });
+                // Set filtered and enrolled courses
+                this.filteredCourses = this.courses;
+                this.enrolledCourses = this.courses.filter(course => course.isEnrolled);
+                this.uniqueCategories = this.getUniqueCategories(this.courses);
+            },
+            error: (err) => {
+                console.error('Error fetching courses: ', err);
+            }
+        });
+    }
 }
 
 // ngDoCheck(): void {
@@ -154,29 +151,32 @@ loadCourses(): void {
     this.ApiService.enrollStudent(this.studentId, courseId).subscribe(
         response => {
             console.log('Enrolled successfully:', response);
-            // alert('You have been successfully enrolled in the course!');
-            // console.log(this.courseId);
+
+            // Find the course to enroll in
             let courseToEnroll = this.courses.find(course => course.courseId === courseId);
+            
             if (courseToEnroll) {
                 console.log(courseToEnroll);
-                // Add the course to enrolledCourses if it's not already there
+
+                // Check if the course is already in enrolledCourses
                 if (!this.isEnrolled(courseToEnroll.courseId)) {
+                    // Add the course to the enrolledCourses array
                     this.enrolledCourses.push(courseToEnroll);
                     alert(`You have been successfully enrolled in: ${courseToEnroll.name}`);
                 } else {
                     alert('You are already enrolled in this course.');
                 }
             }
+
             console.log(this.enrolledCourses);
         },
         error => {
             console.error('Error enrolling:', error);
-            alert('Error enrolling in the course!');
+            alert('Error: Unable to enroll. Please try again later.');
         }
     );
-   
-
 }
+
 isEnrolled(courseId: number): boolean {
     return this.enrolledCourses.some(course => course.courseId === courseId);
 }
@@ -212,37 +212,58 @@ isEnrolled(courseId: number): boolean {
   //       }
   //   });
   //   }
+ 
+  
+  // 
   getEnrolledCourses(): void {
-    const TIMEOUT_DURATION = 1000; // Timeout in milliseconds (10 seconds)
-
-    this.ApiService.getEnrolledCourses(this.studentId).pipe(
-        timeout(TIMEOUT_DURATION), // Set timeout duration
-        catchError((err) => {
-            // Handle timeout or other errors
-            if (err.name === 'TimeoutError') {
-                console.error('The request timed out.');
+    const TIMEOUT_DURATION = 100; // Timeout in milliseconds (10 seconds)
+  
+    this.ApiService.getEnrolledCourses(this.studentId).subscribe({
+      next: (enrollments: Enrollment[]) => {
+        const storedCourses = localStorage.getItem('courses');
+  
+        if (storedCourses) {
+          const courses: Course[] = JSON.parse(storedCourses);  // Define courses type as Course[]
+  
+          // Map enrolled courses with detailed information
+          this.enrolledCourses = enrollments.map((enrollment) => {
+            // Find the course in the stored courses using courseId
+            const courseDetails = courses.find((course: Course) => course.courseId === enrollment.courseId);  // Specify type for 'course'
+  
+            if (courseDetails) {
+              return {
+                courseId: courseDetails.courseId,
+                name: courseDetails.name || `Course Name ${enrollment.courseId}`,
+                description: courseDetails.description || `Description for course ${enrollment.courseId}`,
+                category: courseDetails.category || 'Category for course',
+                rating: courseDetails.rating || 4,
+                isEnrolled: true
+              };
             } else {
-                console.error('Error fetching enrolled courses: ', err);
-            }
-            return throwError(err); // Rethrow the error
-        })
-    ).subscribe({
-        next: (enrollments: Enrollment[]) => {
-            this.enrolledCourses = enrollments.map((enrollment) => ({
+              console.warn(`Course with ID ${enrollment.courseId} not found in local storage.`);
+              return {
                 courseId: enrollment.courseId,
                 name: `Course Name ${enrollment.courseId}`,
                 description: `Description for course ${enrollment.courseId}`,
                 category: 'Category for course',
                 rating: 4,
                 isEnrolled: true
-            }));
-        },
-        error: (err) => {
-            // This will also catch the timeout or any other error rethrown in catchError
-            console.error('Error fetching enrolled courses: ', err);
+              };
+            }
+          });
+        } else {
+          console.error('No courses found in local storage.');
         }
+      },
+      error: (err) => {
+        console.error('Error fetching enrolled courses: ', err);
+      }
     });
   }
+  
+  
+
+  
   file: File | null = null;
   message: string = '';
   success: boolean = false;
