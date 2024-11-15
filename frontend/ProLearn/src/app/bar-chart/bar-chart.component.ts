@@ -10,19 +10,25 @@ export class BarChartComponent implements OnInit {
   
   // Sample data
   marksData: { [month: string]: number } = {
-    'January': 85,
-    'February': 90,
-    'March': 78,
-    'April': 92,
-    'May': 88,
-    'June': 94,
-    'July': 85,
-    'August': 90,
-    'September': 78,
-    'October': 92,
-    'November': 88,
-    'December': 94
-  };
+    'January': this.getRandomMarks(),
+    'February': this.getRandomMarks(),
+    'March': this.getRandomMarks(),
+    'April': this.getRandomMarks(),
+    'May': this.getRandomMarks(),
+    'June': this.getRandomMarks(),
+    'July': this.getRandomMarks(),
+    'August': this.getRandomMarks(),
+    'September': this.getRandomMarks(),
+    'October': this.getRandomMarks(),
+    'November': this.getRandomMarks(),
+    'December': this.getRandomMarks()
+};
+
+// Helper function to generate random marks between 70 and 100
+getRandomMarks(): number {
+    return Math.floor(Math.random() * (100 - 70 + 1)) + 70;
+}
+
 
   // Labels and data for the chart
   barChartData: ChartData<'bar'> = {

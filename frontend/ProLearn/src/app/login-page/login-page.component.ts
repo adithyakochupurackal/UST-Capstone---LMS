@@ -1,3 +1,4 @@
+import { Token } from '@angular/compiler';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
@@ -19,11 +20,12 @@ export class LoginPageComponent {
     this.apiService.login(this.credentials).subscribe({
       next: (response: {token:string,studentId:number}) => {
         // Successfully logged in
-        console.log("User successfully logged in");
+        
 
         // Save the JWT token to localStorage via the ApiService
         this.apiService.saveToken(response.token);
         this.apiService.saveStudentId(response.studentId.toLocaleString());
+        console.log("User successfully logged in",this.apiService.getToken());
 
         // Redirect to the dashboard page
         this.router.navigate(['/dashboard']);

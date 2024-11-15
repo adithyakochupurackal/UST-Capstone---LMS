@@ -44,7 +44,7 @@ NgChartsModule
     AfterLoginHeaderComponent,
     BarChartComponent,
     ChatbotComponent,
-    ProgressTrackerComponent,
+    ProgressTrackerComponent
 
   ],
   imports: [

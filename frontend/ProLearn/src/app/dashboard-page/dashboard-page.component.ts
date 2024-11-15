@@ -242,24 +242,32 @@ export class DashboardPageComponent implements OnInit {
   }
 
   onSubmitAssignment(): void {
-    console.log("Your assignment was submitted successfully", this.file);
     if (this.file) {
-      this.ApiService.submitAssignment(this.file).subscribe(
-        (response) => {
-          this.success = true;
-          this.message = 'Assignment submitted successfully!';
-          console.log("Your assignment was submitted successfully", this.file);
-        },
-        (error) => {
-          this.success = false;
-          this.message = 'Error submitting assignment: ' + error.error.message;
-        }
-      );
+        this.ApiService.submitAssignment(this.file).subscribe(
+            (response) => {
+                this.success = true;
+                this.message = 'Assignment submitted successfully!';
+                console.log("Your assignment was submitted successfully", this.file);
+                
+                // Clear the file after successful submission
+                this.file = null;
+
+                // Optionally, if you are using a file input element in your template, reset it as well
+                const fileInput = document.getElementById("fileInput") as HTMLInputElement;
+                if (fileInput) {
+                    fileInput.value = ""; // Clear the file input element
+                }
+            },
+            (error) => {
+                this.success = false;
+                this.message = 'Error submitting assignment: ' + error.error.message;
+            }
+        );
     } else {
-      this.success = false;
-      this.message = 'Please fill in all the fields.';
+        this.success = false;
+        this.message = 'Please fill in all the fields.';
     }
-  }
+}
 
   feedback = {
     name: '',
@@ -320,11 +328,28 @@ export class DashboardPageComponent implements OnInit {
     courseRating: 0
   };
 
-  submitFeedbackCourses(courseId: number, courseName: string) {
+  submitFeedbackCourses(courseId:number,courseName:string)
+  {
     console.log('Feedback submitted for', this.selectedCourse.name);
-    console.log(this.courseFeedback);
-    alert('Thank you! Your feedback has been submitted successfully!');
-    this.showFeedbackForm = false;
+    console.log('Rating:', this.feedbackCourses.rating);
+    console.log('Feedback:', this.feedbackCourses.feedbackText);
+    console.log("courseid",courseId);
+    console.log("coursename",courseName)
+    const feedbackData = {
+      courseFeedback:String(this.feedbackCourses.feedbackText),
+      courseId: courseId,
+      courseName:courseName,
+      courseRating:Number(this.feedbackCourses.rating),
+    };
+    this.ApiService.submitCourseFeedback(feedbackData).subscribe(
+      (response)=>{
+        console.log("your course feedback is successfully added")
+        this.closeFeedbackForm();
+      },
+      (error)=>{
+        console.log("error while submitting the feedback")
+      }
+    )
   }
 
   showRating(course: any) {

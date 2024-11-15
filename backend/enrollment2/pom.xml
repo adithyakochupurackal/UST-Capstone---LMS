@@ -68,12 +68,7 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>com.iiht.registry</groupId>
-			<artifactId>eurekaregistryservice</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-	</dependencies>
+		</dependencies>
 
 	<build>
 		<plugins>

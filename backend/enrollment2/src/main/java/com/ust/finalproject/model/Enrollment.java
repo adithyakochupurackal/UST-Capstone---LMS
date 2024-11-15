@@ -15,16 +15,16 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(
-    name = "enrollments",
-    uniqueConstraints = @UniqueConstraint(columnNames = {"studentId", "courseId"})
-)
+@Table(name = "enrollment", uniqueConstraints = @UniqueConstraint(columnNames = {"studentId", "courseId"}))
 public class Enrollment {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int enrollmentID;
     
+    @Column(nullable = false)
     private int studentId;
-
+    
+    @Column(nullable = false)
     private int courseId;
 }

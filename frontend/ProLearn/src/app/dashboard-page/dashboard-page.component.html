@@ -95,12 +95,12 @@
         <button (click)="openFeedbackForm(enrolled)" class="btn-feedback">Give Feedback</button>
  
         <!-- Feedback Form -->
-        <div *ngIf="showFeedbackForm && selectedCourse === enrolled" class="card feedback-card">
+        <div *ngIf="showFeedbackForm && selectedCourse === enrolled" class="card-feedback-card">
             <h3>Provide Feedback for {{ enrolled.name }}</h3>
             <form (ngSubmit)="submitFeedbackCourses(enrolled.courseId  ,enrolled.name)">
                 <div class="form-group">
                     <label for="rating">Rating (1 to 5):</label>
-                    <input type="number" id="rating" [(ngModel)]="feedbackCourses.rating" name="rating" min="1" max="5" required>
+                    <input type="number" id="rating" [(ngModel)]="feedbackCourses.rating" name="rating" min="1" max="5" required class="feedback-rating">
                 </div>
                 <div class="form-group">
                     <label for="feedbackText">Feedback:</label>

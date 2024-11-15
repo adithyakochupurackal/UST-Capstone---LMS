@@ -49,3 +49,14 @@
 .footer-nav a:hover::before {
     width: 100%; /* Expand to full width */
 }
+/* styles.css or the footer component's CSS file */
+.footer .social-icons {
+    margin-top: 10px;
+}
+
+.footer .social-icons i {
+    font-size: 1.5em;
+    margin-right: 10px;
+    color: rgb(255, 255, 255); /* Adjust the color as needed */
+}
+
